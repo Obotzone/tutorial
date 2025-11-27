@@ -1,1 +1,767 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial Website & Domain Gratis – Obotzone</title>
+  <meta name="description" content="Kumpulan tutorial lengkap cara membuat website gratis, menghubungkan subdomain Digitalplat.org ke Cloudflare dan GitHub Pages, sampai optimasi basic untuk exposure.">
+  <link rel="icon" href="../favicon.ico" />
+
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-soft: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius: 18px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 42%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    header {
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.1), transparent 55%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 20% 0%, #38bdf8, #0ea5e9 35%, #0f172a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 17px;
+      color: #e5f3ff;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .logo-text-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 17px;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: -2px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav a.nav-active {
+      border-color: rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: #f9fafb;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1.6fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 850px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617 80%);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px;
+      margin-bottom: 12px;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      margin-bottom: 10px;
+    }
+
+    .hero-label-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #15803d);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3vw, 26px);
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 16px;
+    }
+
+    .bookmark-callout {
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      padding: 8px 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background:
+        radial-gradient(circle at left, rgba(56, 189, 248, 0.12), transparent 60%),
+        rgba(15, 23, 42, 0.9);
+      margin-bottom: 4px;
+    }
+
+    .bookmark-key {
+      padding: 3px 7px;
+      border-radius: 7px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 11px;
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 4px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      background: radial-gradient(circle at top left, #38bdf8, #0ea5e9 40%, #075985 100%);
+      font-size: 13px;
+      font-weight: 500;
+      color: #0b1120;
+      box-shadow: 0 14px 30px rgba(56, 189, 248, 0.55);
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.7);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(148, 163, 184, 0.9);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .btn-pill-tag {
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-pill-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    /* Tutorial section */
+
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .tutorial-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width: 700px) {
+      .tutorial-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    .tutorial-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background:
+        radial-gradient(circle at top, rgba(30, 64, 175, 0.55), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      padding: 12px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      transition: 0.16s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tutorial-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 0 solid transparent;
+      background: conic-gradient(
+        from 160deg,
+        rgba(56, 189, 248, 0.0),
+        rgba(56, 189, 248, 0.6),
+        rgba(37, 99, 235, 0.0),
+        rgba(56, 189, 248, 0.0)
+      );
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      z-index: -1;
+    }
+
+    .tutorial-card:hover::before {
+      opacity: 0.4;
+    }
+
+    .tutorial-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    .tutorial-tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .tutorial-level {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .tutorial-time {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .tutorial-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .tutorial-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .tutorial-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .tutorial-link {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tutorial-link span {
+      font-size: 13px;
+      transform: translateY(0.5px);
+    }
+
+    /* Sidebar */
+
+    .sidebar-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.15), transparent 60%),
+        rgba(15, 23, 42, 0.97);
+      padding: 16px 15px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .sidebar-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #e5e7eb;
+      margin-bottom: 5px;
+    }
+
+    .sidebar-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .sidebar-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .sidebar-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .contact-pill span {
+      font-size: 13px;
+      transform: translateY(0.5px);
+    }
+
+    .sidebar-list {
+      list-style: none;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-left: 0;
+      margin-top: 4px;
+    }
+
+    .sidebar-list li {
+      margin: 3px 0;
+    }
+
+    .sidebar-list strong {
+      color: #e5e7eb;
+    }
+
+    footer {
+      margin-top: 18px;
+      padding-top: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-right {
+      font-size: 11px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header>
+      <div class="logo">
+        <div class="logo-mark">O</div>
+        <div>
+          <div class="logo-text-main">Obotzone Tutorials</div>
+          <div class="logo-text-sub">Panduan praktis website & domain gratis</div>
+        </div>
+      </div>
+      <nav>
+        <a href="../index.html">Beranda</a>
+        <a href="./index.html" class="nav-active">Tutorial</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div class="panel">
+          <div class="hero-label">
+            <div class="hero-label-dot"></div>
+            <span>Hub Tutorial · Level Pro</span>
+          </div>
+          <h1 class="hero-title">Tutorial lengkap membangun website gratis yang tetap terlihat “pro”.</h1>
+          <p class="hero-subtitle">
+            Halaman ini menghubungkan semua panduan: mulai dari memilih subdomain di Digitalplat.org, mengarahkan DNS via Cloudflare,
+            sampai meng-online-kan website dengan GitHub Pages dan mengoptimalkan exposure Obotzone.
+          </p>
+
+          <div class="bookmark-callout">
+            <span>💡 Simpan halaman ini:</span>
+            <span class="bookmark-key">Ctrl</span> +
+            <span class="bookmark-key">D</span>
+            <span>· Kembali lagi kapan saja saat butuh panduan.</span>
+          </div>
+
+          <div class="hero-cta-row">
+            <a href="#daftar-tutorial" class="btn-primary">
+              Lihat daftar tutorial
+              <span>↓</span>
+            </a>
+            <a href="https://t.me/obotzone19" target="_blank" class="btn-ghost">
+              Chat Telegram @obotzone19
+            </a>
+          </div>
+
+          <div class="hero-cta-row">
+            <div class="btn-pill-tag">
+              <span class="btn-pill-tag-dot"></span>
+              Cocok untuk pemula & level lanjut
+            </div>
+          </div>
+        </div>
+
+        <div id="daftar-tutorial" class="panel">
+          <div class="section-title-row">
+            <h2 class="section-title">Daftar tutorial utama</h2>
+            <span class="tutorial-time">Urut dari yang paling dasar</span>
+          </div>
+          <p class="section-sub">
+            Disusun berurutan supaya kamu bisa mulai dari nol: punya subdomain dulu, atur DNS, host website, lalu optimasi tampilan dan exposure.
+          </p>
+
+          <div class="tutorial-grid">
+            <!-- Card 1 -->
+            <a href="./memilih-subdomain-digitalplat.html" class="tutorial-card">
+              <div class="tutorial-tag-row">
+                <span class="tutorial-level">Dasar · Step 1</span>
+                <span class="tutorial-time">± 5 menit</span>
+              </div>
+              <div class="tutorial-title">Memilih subdomain di Digitalplat.org secara tepat</div>
+              <p class="tutorial-desc">
+                Cara memilih ekstensi subdomain yang tepat, apa bedanya tiap ekstensi, serta tips menyesuaikan dengan brand Obotzone dan niche websitemu.
+              </p>
+              <div class="tutorial-meta-row">
+                <span>Subdomain · Branding awal</span>
+                <span class="tutorial-link">Baca panduan <span>↗</span></span>
+              </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="./menghubungkan-dns-ke-cloudflare.html" class="tutorial-card">
+              <div class="tutorial-tag-row">
+                <span class="tutorial-level">Dasar · Step 2</span>
+                <span class="tutorial-time">± 10 menit</span>
+              </div>
+              <div class="tutorial-title">Menghubungkan subdomain ke Cloudflare</div>
+              <p class="tutorial-desc">
+                Panduan menambahkan subdomain ke Cloudflare, membuat DNS record yang benar, dan menyiapkan fondasi untuk keamanan & performa.
+              </p>
+              <div class="tutorial-meta-row">
+                <span>DNS · Cloudflare</span>
+                <span class="tutorial-link">Baca panduan <span>↗</span></span>
+              </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="./hosting-di-github-pages.html" class="tutorial-card">
+              <div class="tutorial-tag-row">
+                <span class="tutorial-level">Teknis · Step 3</span>
+                <span class="tutorial-time">± 12 menit</span>
+              </div>
+              <div class="tutorial-title">Hosting website statis di GitHub Pages</div>
+              <p class="tutorial-desc">
+                Cara membuat repository, mengatur GitHub Pages, dan menghubungkan ke subdomain yang sudah dikelola Cloudflare.
+              </p>
+              <div class="tutorial-meta-row">
+                <span>GitHub Pages · Deployment</span>
+                <span class="tutorial-link">Baca panduan <span>↗</span></span>
+              </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="./setting-ssl-dan-keamanan.html" class="tutorial-card">
+              <div class="tutorial-tag-row">
+                <span class="tutorial-level">Teknis · Step 4</span>
+                <span class="tutorial-time">± 8 menit</span>
+              </div>
+              <div class="tutorial-title">Mengaktifkan HTTPS & pengaturan keamanan dasar</div>
+              <p class="tutorial-desc">
+                Konfigurasi SSL/HTTPS di Cloudflare, pengaturan mode SSL, dan beberapa rule sederhana agar situs tetap aman & stabil.
+              </p>
+              <div class="tutorial-meta-row">
+                <span>HTTPS · Keamanan ringan</span>
+                <span class="tutorial-link">Baca panduan <span>↗</span></span>
+              </div>
+            </a>
+
+            <!-- Card 5 -->
+            <a href="./optimasi-landing-page-exposure.html" class="tutorial-card">
+              <div class="tutorial-tag-row">
+                <span class="tutorial-level">Pro · Exposure</span>
+                <span class="tutorial-time">± 15 menit</span>
+              </div>
+              <div class="tutorial-title">Optimasi landing page untuk exposure Obotzone</div>
+              <p class="tutorial-desc">
+                Tips struktur konten, copywriting sederhana, dan elemen visual yang membuat situsmu terasa “pro” meskipun menggunakan subdomain gratis.
+              </p>
+              <div class="tutorial-meta-row">
+                <span>Copywriting · UX ringan</span>
+                <span class="tutorial-link">Baca panduan <span>↗</span></span>
+              </div>
+            </a>
+
+            <!-- Card 6 -->
+            <a href="./membangun-traffic-organik.html" class="tutorial-card">
+              <div class="tutorial-tag-row">
+                <span class="tutorial-level">Pro · Growth</span>
+                <span class="tutorial-time">± 18 menit</span>
+              </div>
+              <div class="tutorial-title">Membangun traffic organik dari konten bermanfaat</div>
+              <p class="tutorial-desc">
+                Cara menjadikan situsmu rujukan yang bermanfaat, sehingga seiring waktu subdomain dan brand Obotzone ikut terangkat karena exposure & trust.
+              </p>
+              <div class="tutorial-meta-row">
+                <span>Traffic · Konten bermanfaat</span>
+                <span class="tutorial-link">Baca panduan <span>↗</span></span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="sidebar-card">
+          <div class="sidebar-title">Kenapa pakai subdomain dulu?</div>
+          <p class="sidebar-text">
+            Subdomain gratis dari Digitalplat.org bisa jadi “laboratorium” untuk belajar:
+            kamu bisa uji desain, struktur konten, dan cara bangun traffic — tanpa takut rugi biaya domain.
+          </p>
+          <ul class="sidebar-list">
+            <li><strong>Keuntungan:</strong> gratis, cepat mulai, cocok eksperimen.</li>
+            <li><strong>Kekurangan:</strong> brand masih “numpang” domain utama, dan untuk jangka panjang tetap lebih kuat pakai domain sendiri.</li>
+            <li><strong>Nilai plus:</strong> kalau websitemu bermanfaat & punya exposure besar, traffic tetap mengalir kuat meski diawali dari subdomain.</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-title">Butuh bantuan langsung?</div>
+          <div class="sidebar-badge">
+            <div class="sidebar-badge-dot"></div>
+            Dukungan santai dari Obotzone
+          </div>
+          <p class="sidebar-text">
+            Bingung di langkah tertentu? Kamu bisa kirim screenshot atau menjelaskan error
+            yang muncul, nanti kita coba breakdown pelan-pelan.
+          </p>
+          <div class="contact-row">
+            <a href="https://t.me/obotzone19" target="_blank" class="contact-pill">
+              <span>✉</span>
+              <span>@obotzone19</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-title">Rencana ke depan</div>
+          <p class="sidebar-text">
+            Ke depannya, halaman ini juga bisa dikembangkan menjadi:
+          </p>
+          <ul class="sidebar-list">
+            <li>• Web tutorial lebih detail per topik.</li>
+            <li>• Contoh template landing page siap pakai.</li>
+            <li>• Seri “level pro” untuk optimasi performance & SEO basic.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Obotzone · Tutorial Website & Domain Gratis.</div>
+      <div class="footer-right">
+        <span>Hubungi via Telegram: <a class="footer-link" href="https://t.me/obotzone19" target="_blank">@obotzone19</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Tahun otomatis
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
 
