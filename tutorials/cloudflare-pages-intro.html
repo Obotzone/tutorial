@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial #1 – Pengenalan Cloudflare Pages & Persiapan Akun</title>
+  <meta name="description" content="Tutorial dasar Cloudflare Pages: pengenalan konsep, kelebihan, dan langkah awal menyiapkan akun sebelum membuat website statis." />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Tambahan gaya ringan khusus halaman tutorial (opsional) */
+    .page-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .breadcrumb a {
+      text-decoration: none;
+    }
+
+    .tutorial-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.6rem;
+      background: rgba(0, 123, 255, 0.08);
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-box {
+      border-radius: 0.8rem;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.5rem;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      font-size: 0.95rem;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin: 1.8rem 0 0.7rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.2rem 0 0.4rem;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+    }
+
+    ul {
+      margin-left: 1.1rem;
+      margin-bottom: 0.7rem;
+      padding-left: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    .step-list {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    .step-list li {
+      position: relative;
+      padding-left: 2.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .step-list li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(0, 123, 255, 0.1);
+    }
+
+    .note {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary {
+      border: none;
+      background: #007bff;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+    }
+
+    .btn-link span {
+      margin-left: 0.3rem;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .page-container {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+      h1 {
+        font-size: 1.45rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Pakai header yang sama dengan halaman utama -->
+    <div class="container">
+      <h1 class="site-title">Obotzone – Website & Subdomain Gratis</h1>
+      <nav class="site-nav">
+        <a href="/">Beranda</a>
+        <a href="/tutorials/">Tutorial</a>
+        <!-- Tambah link lain jika ada -->
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="breadcrumb">
+      <a href="/">Beranda</a> &rsaquo;
+      <a href="/tutorials/">Tutorial</a> &rsaquo;
+      <span>Tutorial #1</span>
+    </div>
+
+    <div class="tutorial-label">Tutorial #1</div>
+    <h1>Pengenalan Cloudflare Pages & Persiapan Akun</h1>
+    <p class="subtitle">
+      Di tutorial pertama ini kamu akan memahami dulu apa itu Cloudflare Pages,
+      kenapa cocok untuk website statis ringan, dan apa saja yang perlu disiapkan
+      sebelum mulai deploy.
+    </p>
+
+    <div class="info-box">
+      <strong>Yang akan kamu pelajari:</strong>
+      <ul>
+        <li>Apa itu Cloudflare Pages dan kelebihannya.</li>
+        <li>Perbedaan Cloudflare Pages dengan hosting klasik.</li>
+        <li>Apa saja yang harus kamu siapkan (akun, file, dan domain).</li>
+        <li>Gambaran alur kerja sebelum masuk tutorial teknis berikutnya.</li>
+      </ul>
+    </div>
+
+    <h2>1. Apa itu Cloudflare Pages?</h2>
+    <p>
+      <strong>Cloudflare Pages</strong> adalah layanan hosting untuk
+      website statis yang berjalan di jaringan global Cloudflare. Artinya:
+    </p>
+    <ul>
+      <li>File HTML, CSS, dan JavaScript kamu disimpan di edge server Cloudflare.</li>
+      <li>Pengunjung akan mengakses website dari lokasi server terdekat (lebih cepat).</li>
+      <li>Tidak perlu pusing dengan server, SSH, atau panel hosting yang rumit.</li>
+    </ul>
+    <p>
+      Cloudflare Pages sangat cocok untuk:
+    </p>
+    <ul>
+      <li>Landing page ringan seperti halaman Obotzone.</li>
+      <li>Website profil, portfolio, dokumentasi, atau blog statis.</li>
+      <li>Web tutorial dan halaman informasi yang jarang berubah.</li>
+    </ul>
+
+    <h2>2. Kelebihan Cloudflare Pages dibanding shared hosting biasa</h2>
+    <ul>
+      <li><strong>Cepat</strong> – Menggunakan jaringan global (CDN) Cloudflare.</li>
+      <li><strong>Gratis</strong> – Untuk skala kecil–menengah, tier gratis sudah sangat cukup.</li>
+      <li><strong>Mudah</strong> – Cukup unggah file atau sambungkan ke Git, tanpa setting server.</li>
+      <li><strong>HTTPS otomatis</strong> – Sertifikat SSL dikelola langsung oleh Cloudflare.</li>
+      <li><strong>Skalabel</strong> – Website tetap stabil saat trafik mendadak naik.</li>
+    </ul>
+
+    <h2>3. Kekurangan & batasan yang perlu kamu tahu</h2>
+    <p>
+      Meski enak untuk landing page dan website statis, Cloudflare Pages juga
+      punya batasan:
+    </p>
+    <ul>
+      <li>
+        <strong>Hanya untuk konten statis</strong> – Tidak ada PHP, tidak ada database yang
+        berjalan langsung di server (untuk fitur dinamis butuh layanan tambahan).
+      </li>
+      <li>
+        <strong>Butuh penyesuaian pola pikir</strong> – Dari “hosting klasik” ke model Jamstack /
+        static site (file build & deploy).
+      </li>
+      <li>
+        <strong>Beberapa fitur advanced</strong> (misalnya backend API) perlu integrasi dengan
+        layanan lain (Workers, KV, D1, dsb).
+      </li>
+    </ul>
+    <p class="note">
+      Untuk kebutuhan landing page, profil, dan tutorial – Cloudflare Pages biasanya
+      sudah lebih dari cukup. Fokus kita di seri tutorial ini adalah memaksimalkan
+      kekuatan website statis dulu.
+    </p>
+
+    <h2>4. Apa yang perlu disiapkan sebelum mulai?</h2>
+    <p>
+      Sebelum lanjut ke langkah teknis, pastikan kamu sudah punya beberapa hal ini:
+    </p>
+    <ul>
+      <li>
+        <strong>Akun Cloudflare</strong> – Satu akun utama yang akan mengelola semua project
+        dan domain kamu.
+      </li>
+      <li>
+        <strong>File website statis</strong> – Minimal berisi <code>index.html</code>,
+        <code>style.css</code>, dan aset pendukung (gambar, ikon, dsb).
+      </li>
+      <li>
+        <strong>Domain (opsional, tapi disarankan)</strong> – Bisa domain utama, subdomain
+        proyek, atau subdomain dari penyedia seperti <em>digitalplat.org</em>.
+      </li>
+    </ul>
+    <p>
+      Kalau kamu belum punya domain sendiri, kamu tetap bisa mulai dulu menggunakan
+      domain default dari Cloudflare Pages. Nanti saat sudah siap, baru dihubungkan
+      ke domain atau subdomain yang kamu inginkan.
+    </p>
+
+    <h2>5. Gambaran alur yang akan kita pakai</h2>
+    <p>
+      Supaya kamu punya “peta besar” sebelum lanjut, kurang lebih alur penggunaan
+      Cloudflare Pages dalam seri tutorial ini seperti berikut:
+    </p>
+    <ul class="step-list">
+      <li><strong>Pahami konsep & siapkan akun Cloudflare.</strong></li>
+      <li><strong>Buat project baru di Cloudflare Pages.</strong> (upload file atau sambungkan ke Git)</li>
+      <li><strong>Atur build & deployment.</strong> (kalau pakai generator atau framework tertentu)</li>
+      <li><strong>Hubungkan ke domain atau subdomain pilihanmu.</strong></li>
+      <li><strong>Optimasi & kembangkan.</strong> (struktur folder, update konten, tambah halaman tutorial, dsb)</li>
+    </ul>
+    <p>
+      Di tutorial #1 ini kamu cukup paham dulu di level konsep. Mulai tutorial #2,
+      kita akan langsung praktik: membuat akun Cloudflare dan melihat menu Pages
+      langkah demi langkah.
+    </p>
+
+    <div class="cta-row">
+      <a href="/tutorials/" class="btn-link">
+        &larr; Kembali ke daftar tutorial
+      </a>
+      <!-- Nanti bisa diarahkan ke halaman tutorial #2 setelah dibuat -->
+      <!--
+      <a href="/tutorials/cloudflare-pages-2-buat-project.html" class="btn-link btn-primary">
+        Lanjut ke Tutorial #2 <span>&rarr;</span>
+      </a>
+      -->
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Obotzone. Semua hak dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Tahun otomatis
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
