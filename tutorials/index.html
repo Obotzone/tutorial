@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Tutorial Cloudflare Pages – Obotzone</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Kumpulan tutorial lengkap cara membuat dan menjalankan website statis menggunakan Cloudflare Pages, dari nol sampai pro, oleh Obotzone." />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kumpulan tutorial lengkap penggunaan Cloudflare Pages dari level pemula sampai pro.">
   <style>
     :root {
-      --bg: #f5f7fb;
       --primary: #2563eb;
-      --primary-soft: #e0ebff;
-      --accent: #0ea5e9;
-      --text: #111827;
-      --muted: #6b7280;
-      --card-bg: #ffffff;
-      --border: #e5e7eb;
-      --radius-lg: 16px;
-      --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --primary-soft: #e0edff;
+      --bg: #0f172a;
+      --card-bg: #0b1220;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --accent: #38bdf8;
+      --radius: 14px;
     }
 
     * {
@@ -26,9 +25,8 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top left, #e0f2fe, #f5f7fb 40%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text);
       line-height: 1.6;
     }
@@ -45,22 +43,18 @@
     }
 
     header {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to right, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(
-        to right,
-        rgba(248, 250, 252, 0.96),
-        rgba(239, 246, 255, 0.96)
-      );
-      border-bottom: 1px solid rgba(209, 213, 219, 0.7);
     }
 
     .nav {
-      max-width: 1100px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 0.9rem 1.2rem;
+      padding: 0.9rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -73,194 +67,172 @@
       gap: 0.6rem;
     }
 
-    .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: radial-gradient(circle at 20% 20%, #38bdf8, #1d4ed8);
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #2563eb 40%, #0f172a 75%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
       font-weight: 700;
       font-size: 0.9rem;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+      color: white;
+      box-shadow: 0 0 0 1px rgba(148,163,184,0.5),
+                  0 8px 20px rgba(37,99,235,0.6);
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
+    .brand-text-title {
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
     }
 
-    .brand-text strong {
-      font-size: 1rem;
-    }
-
-    .brand-text span {
-      font-size: 0.75rem;
+    .brand-text-sub {
+      font-size: 0.8rem;
       color: var(--muted);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      font-size: 0.85rem;
+      gap: 0.75rem;
+      font-size: 0.9rem;
     }
 
     .nav-links a {
-      padding: 0.4rem 0.7rem;
+      padding: 0.3rem 0.6rem;
       border-radius: 999px;
+      color: var(--muted);
       border: 1px solid transparent;
     }
 
     .nav-links a:hover {
-      background: rgba(191, 219, 254, 0.6);
-      border-color: rgba(129, 140, 248, 0.4);
+      color: #e5e7eb;
+      border-color: rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
     }
 
-    .nav-links .pill-primary {
-      border-color: rgba(37, 99, 235, 0.3);
-      background: linear-gradient(to right, #2563eb, #0ea5e9);
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
+    .nav-pill {
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,0.7));
+    }
+
+    .nav-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
     }
 
     main {
       flex: 1;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.2rem 1.2rem 3rem;
-    }
-
-    .breadcrumbs {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-    }
-
-    .breadcrumbs a {
-      color: var(--muted);
-    }
-
-    .breadcrumbs span {
-      margin: 0 0.3rem;
-    }
-
     .hero {
+      max-width: 1040px;
+      margin: 1.8rem auto 1.2rem;
+      padding: 0 1.25rem;
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 2.4rem;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.15fr);
+      gap: 1.8rem;
       align-items: center;
-      margin-bottom: 2.6rem;
     }
 
-    @media (max-width: 820px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
+    .hero-kicker {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      font-weight: 600;
     }
 
-    .badge-row {
+    .hero-title {
+      font-size: clamp(1.9rem, 3vw, 2.3rem);
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #60a5fa, #a855f7, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 0.6rem;
-      margin-bottom: 0.9rem;
-      align-items: center;
-    }
-
-    .badge {
-      font-size: 0.75rem;
-      padding: 0.28rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(37, 99, 235, 0.35);
-      background: rgba(219, 234, 254, 0.9);
-      color: #1d4ed8;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
-    }
-
-    .badge-soft {
-      background: rgba(226, 232, 240, 0.7);
-      border-color: rgba(148, 163, 184, 0.7);
-      color: #475569;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      line-height: 1.2;
-      margin-bottom: 0.9rem;
-    }
-
-    .hero h1 span.highlight {
-      background: linear-gradient(
-        120deg,
-        rgba(37, 99, 235, 0.1),
-        rgba(56, 189, 248, 0.1)
-      );
-      box-shadow: 0 6px 0 rgba(191, 219, 254, 0.6);
-      border-radius: 6px;
-      padding: 0.05rem 0.25rem;
-    }
-
-    .hero p.lead {
-      font-size: 0.98rem;
+      font-size: 0.78rem;
       color: var(--muted);
       margin-bottom: 1.2rem;
+    }
+
+    .hero-meta span {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.75);
     }
 
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
-      align-items: center;
-      margin-bottom: 1.1rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.1rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.12s ease,
-        background 0.12s ease;
-      text-decoration: none;
-      white-space: nowrap;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
     }
 
     .btn-primary {
-      background: linear-gradient(to right, #2563eb, #0ea5e9);
-      border-color: rgba(37, 99, 235, 0.5);
-      color: #fff;
-      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: white;
+      border-radius: 999px;
+      padding: 0.55rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 12px 25px rgba(37,99,235,0.6);
+      cursor: pointer;
     }
 
-    .btn-outline {
-      border-color: rgba(148, 163, 184, 0.9);
-      background: rgba(248, 250, 252, 0.95);
-      color: #0f172a;
+    .btn-primary span.icon {
+      font-size: 1.05rem;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font-size: 0.88rem;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+    }
+
+    .btn-ghost span.icon {
+      font-size: 1.0rem;
     }
 
     .hero-note {
@@ -269,544 +241,625 @@
     }
 
     .hero-note strong {
-      color: #0f172a;
+      color: #e5e7eb;
+      font-weight: 600;
     }
 
-    .hero-aside {
-      background: radial-gradient(circle at top left, #1d4ed8, #0f172a);
-      border-radius: 22px;
-      padding: 1.4rem 1.4rem 1.6rem;
-      color: #e5e7eb;
-      box-shadow: var(--shadow-soft);
+    .hero-card {
+      border-radius: var(--radius);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: radial-gradient(circle at top, rgba(30,64,175,0.5), rgba(15,23,42,0.98));
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.9);
       position: relative;
       overflow: hidden;
     }
 
-    .hero-aside::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle at 0 0,
-        rgba(59, 130, 246, 0.45),
-        transparent 55%
-      );
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .hero-aside-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-aside-title {
-      font-size: 0.85rem;
+    .hero-card-tag {
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: #bfdbfe;
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-aside h2 {
-      font-size: 1.05rem;
       margin-bottom: 0.7rem;
+      font-weight: 600;
     }
 
-    .hero-aside p {
-      font-size: 0.82rem;
-      color: #cbd5f5;
-      margin-bottom: 0.9rem;
+    .hero-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.45rem;
     }
 
-    .hero-aside-list {
-      list-style: none;
-      font-size: 0.8rem;
+    .hero-card-sub {
+      font-size: 0.86rem;
+      color: #d1d5db;
       margin-bottom: 0.8rem;
     }
 
-    .hero-aside-list li {
+    .hero-card-list {
+      list-style: none;
+      font-size: 0.82rem;
+      color: #e5e7eb;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card-list li {
       display: flex;
       align-items: flex-start;
-      gap: 0.45rem;
+      gap: 0.4rem;
       margin-bottom: 0.35rem;
     }
 
-    .hero-aside-bullet {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      margin-top: 0.28rem;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+    .hero-card-list li span.bullet {
+      font-size: 0.9rem;
+      margin-top: 0.1rem;
     }
 
-    .hero-aside-footer {
+    .hero-card-footer {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 0.6rem;
-      font-size: 0.78rem;
-      color: #e5e7eb;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #bfdbfe;
     }
 
-    .hero-aside-badge {
-      padding: 0.28rem 0.7rem;
+    .hero-card-badge {
+      padding: 0.25rem 0.6rem;
       border-radius: 999px;
-      border: 1px solid rgba(191, 219, 254, 0.35);
-      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(191,219,254,0.7);
+      background: rgba(15,23,42,0.9);
+      font-size: 0.78rem;
     }
 
-    .hero-aside-tagline {
-      text-align: right;
-      opacity: 0.9;
+    .hero-card-orbit {
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      border: 1px solid rgba(191,219,254,0.5);
+      opacity: 0.5;
+      transform: rotate(-8deg);
     }
 
-    .tutorial-section {
-      margin-top: 0.4rem;
+    .hero-card-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: inherit;
+      border: 1px dashed rgba(191,219,254,0.4);
+    }
+
+    .hero-card-orbit-dot {
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #facc15;
+      top: 18px;
+      right: 36px;
+      box-shadow: 0 0 18px rgba(250,204,21,0.9);
+    }
+
+    .section {
+      max-width: 1040px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.25rem;
     }
 
     .section-header {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
       justify-content: space-between;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.3rem;
     }
 
-    .section-header h2 {
-      font-size: 1.1rem;
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
     }
 
-    .section-header p {
-      font-size: 0.86rem;
+    .section-sub {
+      font-size: 0.85rem;
       color: var(--muted);
-      max-width: 520px;
+    }
+
+    .section-filter {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section-filter span {
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      margin-left: 0.2rem;
     }
 
     .tutorial-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.9rem;
     }
 
     .tutorial-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 1rem 1rem 1.1rem;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.25), rgba(15,23,42,0.98));
+      padding: 0.85rem 0.9rem 0.9rem;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
-      transition: transform 0.13s ease, box-shadow 0.13s ease,
-        border-color 0.13s ease;
-      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
-    .tutorial-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-      border-color: rgba(59, 130, 246, 0.5);
+    .tutorial-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #93c5fd;
+    }
+
+    .tutorial-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tutorial-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
     }
 
     .tutorial-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 0.6rem;
-      font-size: 0.72rem;
-      color: var(--muted);
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .pill-level {
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(219, 234, 254, 0.9);
-      color: #1d4ed8;
-      border: 1px solid rgba(129, 140, 248, 0.5);
-      font-weight: 500;
-    }
-
-    .tutorial-card h3 {
-      font-size: 0.95rem;
-      margin-top: 0.1rem;
-    }
-
-    .tutorial-card p {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .tutorial-link {
-      font-size: 0.8rem;
-      margin-top: 0.25rem;
+    .tutorial-meta span {
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
-      color: var(--primary);
-      font-weight: 500;
     }
 
-    .tutorial-link span {
-      font-size: 0.9em;
-    }
-
-    .tips-box {
-      border-radius: var(--radius-lg);
-      padding: 1rem 1.1rem;
-      background: linear-gradient(
-        120deg,
-        rgba(219, 234, 254, 0.9),
-        rgba(236, 252, 203, 0.9)
-      );
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 0.82rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.8fr);
-      gap: 1rem;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 720px) {
-      .tips-box {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .tips-box h3 {
-      font-size: 0.92rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .tips-box ul {
-      margin-left: 1.1rem;
-      margin-top: 0.4rem;
-    }
-
-    .tips-box li {
-      margin-bottom: 0.3rem;
-    }
-
-    footer {
-      border-top: 1px solid rgba(209, 213, 219, 0.7);
-      background: rgba(248, 250, 252, 0.95);
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.1rem 1.2rem 1.4rem;
+    .tutorial-actions {
+      margin-top: 0.35rem;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      gap: 0.8rem;
-      font-size: 0.8rem;
-      color: var(--muted);
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
-    .footer-inner a {
-      color: var(--primary);
-      font-weight: 500;
+    .tutorial-btn {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(191,219,254,0.9);
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(56,189,248,0.9));
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .tutorial-link {
+      font-size: 0.78rem;
+      color: #93c5fd;
+      text-decoration: underline;
+    }
+
+    .tutorial-badge {
+      position: absolute;
+      right: 0.7rem;
+      top: 0.7rem;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .footer {
+      border-top: 1px solid rgba(148,163,184,0.3);
+      padding: 0.9rem 1.25rem 1.2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,1));
+    }
+
+    .footer a {
+      color: #93c5fd;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        margin-top: 1.3rem;
+        gap: 1.4rem;
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .nav {
+        padding-inline: 1rem;
+      }
+
+      .section {
+        padding-inline: 1rem;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <nav class="nav">
-        <div class="brand">
-          <div class="brand-logo">OZ</div>
-          <div class="brand-text">
-            <strong>Obotzone</strong>
-            <span>Web • Tools • Tutorials</span>
-          </div>
-        </div>
-        <div class="nav-links">
-          <a href="/">Beranda</a>
-          <a href="/tutorials/" class="pill-primary">Tutorial Cloudflare Pages</a>
-        </div>
-      </nav>
-    </header>
-    <!-- BOOKMARK + TELEGRAM BAR -->
-<div style="
-  margin-bottom:18px;
-  background:linear-gradient(135deg,#1d4ed8,#0ea5e9);
-  padding:10px 16px;
-  border-radius:16px;
-  color:white;
-  font-size:14px;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  box-shadow:0 8px 22px rgba(0,0,0,0.15);
-">
-  <div style="font-weight:600;">
-    ⭐ Simpan halaman ini! Tekan <strong>CTRL + D</strong> (Windows) atau <strong>CMD + D</strong> (Mac) untuk Bookmark.
-  </div>
-
-  <a href="https://t.me/obotzone19" target="_blank" style="
-    padding:7px 14px;
-    background:white;
-    color:#1d4ed8;
-    border-radius:999px;
-    font-weight:600;
-    font-size:13px;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    box-shadow:0 4px 10px rgba(255,255,255,0.3);
-  ">
-    <span style="font-size:15px;">💬</span> Hubungi di Telegram
-  </a>
-</div>
-
-    <main>
-      <div class="container">
-        <div class="breadcrumbs">
-          <a href="/">Beranda</a> <span>›</span>
-          <span>Tutorials</span>
-        </div>
-
-        <section class="hero">
-          <div class="hero-main">
-            <div class="badge-row">
-              <div class="badge">
-                <span class="badge-dot"></span>
-                Seri Lengkap Cloudflare Pages
-              </div>
-              <div class="badge badge-soft">
-                Dari nol sampai level <strong>pro</strong>
-              </div>
-            </div>
-
-            <h1>
-              Tutorial <span class="highlight">Cloudflare Pages</span>
-              untuk Website Statis yang Cepat & Tahan Banting
-            </h1>
-
-            <p class="lead">
-              Di halaman ini, kamu akan menemukan rangkaian tutorial langkah-demi-langkah
-              cara menjalankan website statis menggunakan <strong>Cloudflare Pages</strong>:
-              mulai dari pertama kali deploy, menghubungkan domain, sampai tips pro
-              untuk performa & SEO.
-            </p>
-
-            <div class="hero-cta">
-              <a href="#daftar-tutorial" class="btn btn-primary">
-                Lihat semua tutorial
-                <span>↓</span>
-              </a>
-              <a href="https://t.me/obotzone19" target="_blank" class="btn btn-outline">
-                Tanya langsung via Telegram @obotzone19
-              </a>
-            </div>
-
-            <p class="hero-note">
-              💡 <strong>Tips:</strong> Bookmark halaman ini supaya kamu mudah
-              kembali lanjutin langkah berikutnya saat belajar Cloudflare Pages.
-            </p>
-          </div>
-
-          <aside class="hero-aside">
-            <div class="hero-aside-inner">
-              <div class="hero-aside-title">Roadmap Belajar</div>
-              <h2>Dari kosong sampai website hidup di Cloudflare Pages</h2>
-              <p>
-                Ikuti urutan tutorial dari atas ke bawah, kamu akan punya satu
-                website statis yang sudah:
-                <strong>online, pakai domain sendiri, dan aman HTTPS</strong>.
-              </p>
-              <ul class="hero-aside-list">
-                <li>
-                  <div class="hero-aside-bullet"></div>
-                  <div>
-                    Pahami konsep dasar Cloudflare Pages & kenapa cocok untuk
-                    website ringan.
-                  </div>
-                </li>
-                <li>
-                  <div class="hero-aside-bullet"></div>
-                  <div>
-                    Hubungkan repositori Git (GitHub, dll) ke Cloudflare Pages
-                    dan lakukan deploy otomatis.
-                  </div>
-                </li>
-                <li>
-                  <div class="hero-aside-bullet"></div>
-                  <div>
-                    Pasang domain lewat Cloudflare DNS, aktifkan HTTPS, dan
-                    optimalkan performa + SEO.
-                  </div>
-                </li>
-              </ul>
-
-              <div class="hero-aside-footer">
-                <div class="hero-aside-badge">Mode: Praktik Langsung</div>
-                <div class="hero-aside-tagline">
-                  Disusun oleh <strong>Obotzone</strong><br />
-                  untuk personal project & eksperimen web kamu.
-                </div>
-              </div>
-            </div>
-          </aside>
-        </section>
-
-        <section class="tutorial-section" id="daftar-tutorial">
-          <div class="section-header">
-            <h2>Daftar Tutorial Cloudflare Pages</h2>
-            <p>
-              Mulai dari materi dasar dulu, lalu naik ke level lanjutan.
-              Kamu bisa ikuti berurutan, atau lompat ke bagian yang kamu butuhkan.
-            </p>
-          </div>
-
-          <div class="tutorial-grid">
-            <a class="tutorial-card" href="#">
-              <div class="tutorial-meta">
-                <span class="pill-level">Level: Basic</span>
-                <span>± 10 menit</span>
-              </div>
-              <h3>1. Pengenalan Cloudflare Pages & Konsep Website Statis</h3>
-              <p>
-                Apa itu Cloudflare Pages, bedanya dengan hosting biasa, dan
-                kenapa cocok untuk landing page, portfolio, dokumentasi, dan
-                proyek kecil-menengah.
-              </p>
-              <div class="tutorial-link">
-                <span>Buka tutorial</span> <span>→</span>
-              </div>
-            </a>
-
-            <a class="tutorial-card" href="#">
-              <div class="tutorial-meta">
-                <span class="pill-level">Level: Basic</span>
-                <span>± 15 menit</span>
-              </div>
-              <h3>2. Menyiapkan Repo & Struktur Project untuk Cloudflare Pages</h3>
-              <p>
-                Menata folder, file <code>index.html</code>, dan opsi penamaan
-                project supaya rapi dan mudah dikelola untuk banyak website.
-              </p>
-              <div class="tutorial-link">
-                <span>Buka tutorial</span> <span>→</span>
-              </div>
-            </a>
-
-            <a class="tutorial-card" href="#">
-              <div class="tutorial-meta">
-                <span class="pill-level">Level: Basic</span>
-                <span>± 15 menit</span>
-              </div>
-              <h3>3. Deploy Pertama Kali Website ke Cloudflare Pages</h3>
-              <p>
-                Langkah detail membuat project baru di Cloudflare Pages, menghubungkan
-                ke repo Git, dan memastikan website kamu benar-benar live.
-              </p>
-              <div class="tutorial-link">
-                <span>Buka tutorial</span> <span>→</span>
-              </div>
-            </a>
-
-            <a class="tutorial-card" href="#">
-              <div class="tutorial-meta">
-                <span class="pill-level">Level: Intermediate</span>
-                <span>± 20 menit</span>
-              </div>
-              <h3>4. Menghubungkan Custom Domain & Subdomain di Cloudflare</h3>
-              <p>
-                Cara mengarahkan domain/subdomain ke Cloudflare Pages, mengatur DNS,
-                serta strategi jika memakai subdomain gratis (misalnya dari digitalplat.org).
-              </p>
-              <div class="tutorial-link">
-                <span>Buka tutorial</span> <span>→</span>
-              </div>
-            </a>
-
-            <a class="tutorial-card" href="#">
-              <div class="tutorial-meta">
-                <span class="pill-level">Level: Intermediate</span>
-                <span>± 15 menit</span>
-              </div>
-              <h3>5. Mengaktifkan HTTPS, Redirect, dan Setting Dasar Keamanan</h3>
-              <p>
-                Menggunakan fitur SSL/TLS, Always HTTPS, dan redirect sederhana
-                (www → non-www atau sebaliknya) agar situs lebih aman dan rapi.
-              </p>
-              <div class="tutorial-link">
-                <span>Buka tutorial</span> <span>→</span>
-              </div>
-            </a>
-
-            <a class="tutorial-card" href="#">
-              <div class="tutorial-meta">
-                <span class="pill-level">Level: Pro</span>
-                <span>± 25 menit</span>
-              </div>
-              <h3>6. Tips Pro: Optimasi Performa, Cache, dan SEO di Cloudflare Pages</h3>
-              <p>
-                Menggunakan fitur Page Rules, Cache, dan trik ringan di HTML/CSS
-                agar website makin cepat sekaligus ramah mesin pencari.
-              </p>
-              <div class="tutorial-link">
-                <span>Buka tutorial</span> <span>→</span>
-              </div>
-            </a>
-          </div>
-
-          <div class="tips-box">
-            <div>
-              <h3>Bagaimana kaitannya dengan subdomain gratis?</h3>
-              <p>
-                Kamu bisa membangun website statis di Cloudflare Pages, lalu
-                mengarahkan beberapa subdomain (misalnya yang disediakan oleh
-                layanan seperti <strong>digitalplat.org</strong>) ke project yang berbeda.
-              </p>
-              <ul>
-                <li>1 project Cloudflare Pages = 1 website.</li>
-                <li>Setiap website bisa dipetakan ke subdomain berbeda.</li>
-                <li>Cocok untuk eksperimen, landing page, atau microsite khusus.</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Butuh bantuan teknis?</h3>
-              <p>
-                Jika kamu bingung di salah satu langkah (DNS, deploy, atau error
-                aneh di Cloudflare Pages), kamu bisa:
-              </p>
-              <ul>
-                <li>
-                  Kirim screenshot & penjelasan singkat ke
-                  <strong>Telegram @obotzone19</strong>.
-                </li>
-                <li>
-                  Simpan link halaman ini dan kirim ke teman yang mau belajar
-                  cara host website statis gratis.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <footer>
-      <div class="footer-inner">
-        <div>© <span id="year"></span> Obotzone. Semua hak dilindungi.</div>
+<div class="page">
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-icon">OZ</div>
         <div>
-          Kontak: <a href="https://t.me/obotzone19" target="_blank">@obotzone19 di Telegram</a>
+          <div class="brand-text-title">Obotzone</div>
+          <div class="brand-text-sub">Web & domain gratis • Cloudflare Pages</div>
         </div>
       </div>
-    </footer>
-  </div>
+      <div class="nav-links">
+        <a href="/">Beranda</a>
+        <a href="/tutorials/">Tutorial</a>
+        <span class="nav-pill">
+          <span class="nav-pill-dot"></span>
+          Cloudflare Pages Guide
+        </span>
+      </div>
+    </div>
+  </header>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-kicker">Panduan Lengkap</div>
+        <h1 class="hero-title">
+          Tutorial <span>Cloudflare Pages</span> dari nol sampai siap produksi.
+        </h1>
+        <p class="hero-sub">
+          Kumpulan tutorial praktis untuk membuat, mengonlinekan, dan mengembangkan website statis di
+          Cloudflare Pages – dari pengaturan awal sampai workflow level pro.
+        </p>
+        <div class="hero-meta">
+          <span>👶 Cocok untuk pemula</span>
+          <span>⚡ Fokus praktik, bukan teori</span>
+          <span>🛠️ Bisa dipakai untuk semua niche</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#list-tutorial" class="btn-primary">
+            <span class="icon">📚</span>
+            <span>Lihat semua tutorial</span>
+          </a>
+          <a href="/" class="btn-ghost">
+            <span class="icon">🏠</span>
+            <span>Kembali ke beranda</span>
+          </a>
+        </div>
+        <p class="hero-note">
+          <strong>Tip:</strong> Simpan halaman ini di bookmark agar gampang diakses lagi saat kamu butuh
+          referensi setup Cloudflare Pages dan subdomain gratis.
+        </p>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-orbit"></div>
+        <div class="hero-card-orbit-dot"></div>
+
+        <div class="hero-card-tag">Roadmap belajar</div>
+        <div class="hero-card-title">Dari “belum paham” menjadi “deploy tiap hari”</div>
+        <p class="hero-card-sub">
+          Ikuti urutannya dari atas ke bawah, kamu akan punya fondasi yang kuat untuk mengelola banyak
+          website statis dengan biaya minim dan performa maksimal.
+        </p>
+        <ul class="hero-card-list">
+          <li>
+            <span class="bullet">✅</span>
+            <span>Pahami konsep Cloudflare Pages & cara kerjanya.</span>
+          </li>
+          <li>
+            <span class="bullet">✅</span>
+            <span>Pelajari setup domain & subdomain untuk banyak project.</span>
+          </li>
+          <li>
+            <span class="bullet">✅</span>
+            <span>Naik level ke preview, staging, & workflow tim.</span>
+          </li>
+        </ul>
+        <div class="hero-card-footer">
+          <span>Mulai dari tutorial #1, selesai → kamu sudah “ready to ship”.</span>
+          <span class="hero-card-badge">Leveling: Pemula ➝ Pro</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIST TUTORIAL -->
+    <section class="section" id="list-tutorial">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Daftar Tutorial</h2>
+          <p class="section-sub">
+            Ikuti sesuai urutan untuk alur belajar yang rapi. Setiap tutorial punya contoh kasus praktis
+            yang bisa langsung kamu tiru.
+          </p>
+        </div>
+        <div class="section-filter">
+          Mode belajar:
+          <span>Step-by-step • Praktik langsung</span>
+        </div>
+      </div>
+
+      <div class="tutorial-grid">
+        <!-- 1 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#1</div>
+          <div class="tutorial-tag">Fundamental</div>
+          <h3 class="tutorial-title">Pengenalan Cloudflare Pages & konsep website statis modern</h3>
+          <p class="tutorial-desc">
+            Apa itu Cloudflare Pages, bedanya dengan hosting biasa, dan kenapa cocok untuk landing page,
+            portfolio, dan project ringan lain.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 5–7 menit baca</span>
+            <span>🎯 Tujuan: paham gambaran besar</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/cloudflare-pages-intro.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/cloudflare-pages-intro.html" class="tutorial-link">
+              Buka halaman panduan
+            </a>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#2</div>
+          <div class="tutorial-tag">Persiapan</div>
+          <h3 class="tutorial-title">Menyiapkan source code untuk Cloudflare Pages</h3>
+          <p class="tutorial-desc">
+            Struktur folder sederhana yang direkomendasikan, penamaan file, dan tips agar project kamu
+            enak dikelola untuk jangka panjang.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 7–10 menit</span>
+            <span>🧩 Tujuan: struktur rapi</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/struktur-project-cloudflare-pages.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/struktur-project-cloudflare-pages.html" class="tutorial-link">
+              Lihat langkah detail
+            </a>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#3</div>
+          <div class="tutorial-tag">Deploy awal</div>
+          <h3 class="tutorial-title">Membuat project baru di Cloudflare Pages</h3>
+          <p class="tutorial-desc">
+            Langkah demi langkah membuat project baru, menghubungkan dengan repository, dan memastikan
+            build berhasil sampai situs online.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 8–12 menit</span>
+            <span>🚀 Tujuan: pertama kali live</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/project-pertama-cloudflare-pages.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/project-pertama-cloudflare-pages.html" class="tutorial-link">
+              Mulai deploy sekarang
+            </a>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#4</div>
+          <div class="tutorial-tag">Domain & subdomain</div>
+          <h3 class="tutorial-title">Menghubungkan custom domain & subdomain ke Cloudflare Pages</h3>
+          <p class="tutorial-desc">
+            Cara menghubungkan domain utama dan banyak subdomain ke beberapa project Pages sekaligus
+            menggunakan DNS Cloudflare.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 10–15 menit</span>
+            <span>🌐 Tujuan: URL rapi & brandable</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/custom-domain-subdomain-cloudflare-pages.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/custom-domain-subdomain-cloudflare-pages.html" class="tutorial-link">
+              Lihat panduan DNS
+            </a>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#5</div>
+          <div class="tutorial-tag">Multi-project</div>
+          <h3 class="tutorial-title">Mengelola banyak website di satu akun Cloudflare Pages</h3>
+          <p class="tutorial-desc">
+            Strategi mengatur beberapa project sekaligus (landing page, portfolio, tools kecil) tanpa
+            kewalahan dan tetap mudah dipantau.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 7–10 menit</span>
+            <span>📦 Tujuan: multi-site workflow</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/multi-project-cloudflare-pages.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/multi-project-cloudflare-pages.html" class="tutorial-link">
+              Belajar multi-site
+            </a>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#6</div>
+          <div class="tutorial-tag">Keamanan</div>
+          <h3 class="tutorial-title">HTTPS, redirect, dan pengaturan keamanan dasar</h3>
+          <p class="tutorial-desc">
+            Mengaktifkan HTTPS otomatis, membuat redirect yang rapi, dan memakai fitur keamanan dasar
+            Cloudflare untuk melindungi situs.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 8–12 menit</span>
+            <span>🔐 Tujuan: akses aman</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/https-redirect-security-cloudflare.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/https-redirect-security-cloudflare.html" class="tutorial-link">
+              Amankan websitemu
+            </a>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#7</div>
+          <div class="tutorial-tag">Tanpa ribet</div>
+          <h3 class="tutorial-title">Deploy perubahan konten dengan workflow yang sederhana</h3>
+          <p class="tutorial-desc">
+            Cara meng-update teks, gambar, dan halaman baru dengan langkah sesedikit mungkin, tanpa
+            mengacaukan struktur project.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 6–9 menit</span>
+            <span>♻️ Tujuan: update cepat</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/workflow-update-cloudflare-pages.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/workflow-update-cloudflare-pages.html" class="tutorial-link">
+              Pelajari workflow update
+            </a>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#8</div>
+          <div class="tutorial-tag">Performa</div>
+          <h3 class="tutorial-title">Optimasi performa & caching di Cloudflare</h3>
+          <p class="tutorial-desc">
+            Setting caching, kompresi, dan pengaturan sederhana lainnya agar website kamu terasa ringan
+            dan cepat diakses.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 8–12 menit</span>
+            <span>⚡ Tujuan: loading ngebut</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/optimasi-performa-caching-cloudflare.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/optimasi-performa-caching-cloudflare.html" class="tutorial-link">
+              Optimasi sekarang
+            </a>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#9</div>
+          <div class="tutorial-tag">Tanpa backend</div>
+          <h3 class="tutorial-title">Membuat form kontak tanpa server backend</h3>
+          <p class="tutorial-desc">
+            Cara membuat form “Hubungi Kami” yang bisa mengirim pesan ke email atau layanan lain tanpa
+            harus bikin server sendiri.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 10–15 menit</span>
+            <span>📮 Tujuan: bisa terima pesan</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/form-tanpa-backend-cloudflare.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/form-tanpa-backend-cloudflare.html" class="tutorial-link">
+              Buat form kontak
+            </a>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="tutorial-card">
+          <div class="tutorial-badge">#10</div>
+          <div class="tutorial-tag">Level pro</div>
+          <h3 class="tutorial-title">Preview, staging, dan workflow tim di Cloudflare Pages</h3>
+          <p class="tutorial-desc">
+            Memanfaatkan preview deploy, environment staging, dan kolaborasi agar setiap perubahan bisa
+            dicek dulu sebelum benar-benar live.
+          </p>
+          <div class="tutorial-meta">
+            <span>⏱️ 10–15 menit</span>
+            <span>🏁 Tujuan: siap skala & tim</span>
+          </div>
+          <div class="tutorial-actions">
+            <a href="/tutorials/workflow-pro-staging-preview.html" class="tutorial-btn">
+              <span>📖 Lihat tutorial</span>
+              <span>→</span>
+            </a>
+            <a href="/tutorials/workflow-pro-staging-preview.html" class="tutorial-link">
+              Naik ke level pro
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Dibuat oleh Obotzone • Butuh bantuan teknis atau konsultasi setup?
+    Hubungi Telegram <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+  </footer>
+</div>
 </body>
 </html>
