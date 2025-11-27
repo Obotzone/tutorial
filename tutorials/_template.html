@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>{JUDUL_HALAMAN}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="{DESKRIPSI_SINGKAT}" />
+
+  <!-- STYLE UTAMA UNTUK SEMUA TUTORIAL -->
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #020617;
+      --card: #0f172a;
+      --card-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-strong: #0ea5e9;
+      --border: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+      background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #020617 100%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex; gap: 10px; align-items: center;
+    }
+
+    .brand-logo {
+      width: 32px; height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #0ea5e9 45%, #0369a1);
+      display: flex; align-items: center; justify-content: center;
+      color: #e0f2fe; font-weight: 700; font-size: 18px;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.65);
+    }
+
+    .brand-text-main { font-weight: 600; font-size: 15px; }
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .tutorial-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 11px;
+      background: rgba(15, 23, 42, 0.7);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .tutorial-tag .badge {
+      width: 18px; height: 18px; border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.8fr 0.9fr;
+      gap: 22px;
+    }
+    @media(max-width:840px){ .layout { grid-template-columns: 1fr; } }
+
+    /* CARD UTAMA */
+    .card-main {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 55%), var(--card);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .breadcrumb {
+      font-size: 12px; margin-bottom: 10px; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration:none; }
+
+    .pill {
+      background: rgba(15,23,42,0.92);
+      border: 1px solid rgba(148,163,184,0.55);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center; gap:6px;
+      margin-bottom: 12px;
+    }
+
+    .pill-dot {
+      width:8px; height:8px; border-radius:999px;
+      background: var(--accent);
+      box-shadow:0 0 0 4px rgba(56,189,248,0.18);
+    }
+
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    .subtitle {
+      font-size: 14px; color: var(--muted);
+      max-width: 540px; margin-bottom: 16px;
+    }
+
+    .content {
+      background: rgba(15,23,42,0.96);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(51,65,85,0.9);
+      padding: 16px 16px 20px;
+      font-size: 14px;
+    }
+
+    .content h2 { font-size: 16px; margin: 14px 0 6px; }
+    .content ul { margin: 4px 0 10px 18px; }
+    .content li { margin-bottom: 4px; }
+
+    .highlight-box {
+      margin: 10px 0 12px;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.18), rgba(15,23,42,0.95));
+      padding: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(56,189,248,0.5);
+      font-size: 13px;
+    }
+
+    /* SIDEBAR */
+    .sidebar { display:flex; flex-direction:column; gap:14px; }
+
+    .box {
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(55,65,81,0.95);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-size: 13px;
+    }
+
+    .box-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .toc ul { list-style:none; }
+    .toc a { color: var(--text); text-decoration:none; }
+
+    .box-telegram a { color: var(--accent-strong); }
+
+    /* Footer navigasi */
+    .footer-nav {
+      margin-top: 16px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-next {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent-strong), #22c55e);
+      color: #0b1120;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items:center;
+      gap:6px;
+      box-shadow: 0 12px 28px rgba(34,197,94,0.35);
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+  
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">O</div>
+      <div>
+        <div class="brand-text-main">Obotzone</div>
+        <div class="brand-text-sub">web & exposure lab</div>
+      </div>
+    </div>
+
+    <div class="tutorial-tag">
+      <div class="badge">{NOMOR}</div>
+      <span>Tutorial Cloudflare Pages</span>
+    </div>
+  </header>
+
+  <!-- GRID -->
+  <main class="layout">
+
+    <!-- BAGIAN KIRI -->
+    <section class="card-main">
+      <nav class="breadcrumb">
+        <a href="/index.html">Beranda</a> ›
+        <a href="/tutorials/index.html">Tutorial</a> ›
+        <span>{JUDUL_SINGKAT}</span>
+      </nav>
+
+      <div class="pill">
+        <div class="pill-dot"></div>
+        <span>{TAG_LINE}</span>
+      </div>
+
+      <h1>{JUDUL_BESAR}</h1>
+      <p class="subtitle">{SUBTITLE}</p>
+
+      <!-- ISI TUTORIAL -->
+      <article class="content">
+        {MAIN_CONTENT}
+      </article>
+
+      <!-- NAV BELOW -->
+      <div class="footer-nav">
+        <a href="/tutorials/index.html">← Kembali ke daftar tutorial</a>
+        <a class="btn-next" href="{NEXT_URL}">
+          {NEXT_TEXT} →
+        </a>
+      </div>
+
+    </section>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="box toc">
+        <div class="box-title">Isi halaman ini</div>
+        <ul>
+          {TOC_LIST}
+        </ul>
+      </div>
+
+      <div class="box box-telegram">
+        <div class="box-title">Bantuan / Konsultasi</div>
+        <p>
+          Kontak Telegram:<br>
+          <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+        </p>
+      </div>
+
+      <div class="box box-checklist">
+        <div class="box-title">Checklist</div>
+        <ul>
+          {CHECKLIST}
+        </ul>
+      </div>
+    </aside>
+  </main>
+</div>
+</body>
+</html>
