@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #2 – Menghubungkan Subdomain ke Cloudflare Pages | Obotzone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Langkah demi langkah menghubungkan subdomain gratis ke proyek Cloudflare Pages, dengan contoh subdomain dari penyedia seperti digitalplat.org."
+  />
+  <style>
+    :root {
+      --bg: #060816;
+      --bg-soft: #0b0f1f;
+      --bg-softer: #111729;
+      --accent: #4f8cff;
+      --accent-soft: rgba(79, 140, 255, 0.14);
+      --accent-strong: #7ed0ff;
+      --text: #f5f7ff;
+      --muted: #9aa4c6;
+      --border: #1c2440;
+      --danger: #ff6b81;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      --badge-radius: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #182135 0, #050713 40%, #02030a 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 1rem 3rem;
+    }
+
+    .page-shell {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 1.4rem 0 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 30% 10%, #ffffff 0, #b2c7ff 12%, #4f8cff 40%, #111729 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 14px 30px rgba(0, 0, 0, 0.6);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #050713;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--badge-radius);
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    nav a span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+      box-shadow: 0 0 10px rgba(126, 208, 255, 0.7);
+    }
+
+    nav a:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      background: rgba(10, 16, 35, 0.9);
+    }
+
+    nav a.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #050713;
+      border-color: transparent;
+      box-shadow: 0 8px 22px rgba(79, 140, 255, 0.6);
+    }
+
+    main {
+      margin-top: 0.3rem;
+    }
+
+    .hero {
+      margin-top: 0.75rem;
+      padding: 1.5rem 1.4rem 1.6rem;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #283963 0, #0a0f1f 48%, #050713 100%);
+      border: 1px solid rgba(143, 168, 255, 0.3);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: -60%;
+      background:
+        radial-gradient(circle at 0 0, rgba(126, 208, 255, 0.18) 0, transparent 50%),
+        radial-gradient(circle at 120% 10%, rgba(143, 148, 255, 0.16) 0, transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.75rem;
+      border-radius: var(--badge-radius);
+      border: 1px solid rgba(180, 198, 255, 0.5);
+      background: rgba(4, 8, 25, 0.78);
+      color: var(--muted);
+      backdrop-filter: blur(10px);
+    }
+
+    .pill strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .pill-badge {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+      box-shadow: 0 0 8px rgba(126, 208, 255, 0.8);
+    }
+
+    .hero-title {
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #ffffff, #b6d6ff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--badge-radius);
+      background: rgba(4, 8, 25, 0.85);
+      border: 1px solid rgba(91, 112, 177, 0.6);
+    }
+
+    .hero-lead {
+      max-width: 620px;
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.92;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: var(--badge-radius);
+      border: 1px solid transparent;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #050713;
+      box-shadow: 0 10px 24px rgba(79, 140, 255, 0.7);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(79, 140, 255, 0.9);
+    }
+
+    .btn-ghost {
+      background: rgba(4, 8, 25, 0.9);
+      color: var(--accent-strong);
+      border-color: rgba(145, 168, 255, 0.6);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(12, 18, 40, 0.98);
+      border-color: rgba(197, 214, 255, 0.9);
+      color: #ffffff;
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .hero-note strong {
+      color: var(--accent-strong);
+    }
+
+    .layout-main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.4fr);
+      gap: 1.4rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .layout-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(7, 11, 30, 0.96), rgba(4, 7, 22, 0.96));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-subtle);
+      padding: 1.2rem 1.25rem 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: var(--badge-radius);
+      border: 1px solid rgba(145, 168, 255, 0.8);
+      background: rgba(4, 8, 25, 0.9);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      font-size: 0.88rem;
+    }
+
+    .step {
+      padding: 0.75rem 0.75rem 0.8rem;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, rgba(79, 140, 255, 0.18), rgba(4, 7, 22, 0.95));
+      border: 1px solid rgba(110, 137, 214, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      top: 0.75rem;
+      right: 0.8rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(190, 204, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent-strong);
+      background: rgba(5, 9, 25, 0.9);
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-body p {
+      margin-bottom: 0.4rem;
+    }
+
+    .step-body ul {
+      margin-left: 1.1rem;
+      margin-top: 0.2rem;
+    }
+
+    .step-body li {
+      margin-bottom: 0.16rem;
+    }
+
+    .code-chip {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+      font-size: 0.8rem;
+      background: rgba(10, 16, 40, 0.96);
+      border-radius: 999px;
+      padding: 0.16rem 0.55rem;
+      border: 1px solid rgba(134, 158, 235, 0.8);
+      color: #dbe5ff;
+      white-space: nowrap;
+    }
+
+    .tip {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .tip strong {
+      color: var(--accent-strong);
+    }
+
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .callout {
+      font-size: 0.84rem;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, rgba(126, 208, 255, 0.2), #050814);
+      border: 1px solid rgba(157, 190, 255, 0.8);
+      padding: 1rem 1.05rem;
+      box-shadow: 0 14px 28px rgba(15, 24, 54, 0.9);
+    }
+
+    .callout-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .callout p {
+      margin-bottom: 0.45rem;
+    }
+
+    .callout ul {
+      margin-left: 1.1rem;
+      margin-top: 0.25rem;
+    }
+
+    .callout li {
+      margin-bottom: 0.16rem;
+    }
+
+    .note-card {
+      font-size: 0.8rem;
+      border-radius: var(--radius-md);
+      padding: 0.9rem 0.95rem;
+      border: 1px dashed rgba(132, 154, 230, 0.8);
+      background: rgba(5, 9, 25, 0.95);
+      color: var(--muted);
+    }
+
+    .note-card strong {
+      color: var(--accent-strong);
+    }
+
+    .telegram-card {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.82rem;
+      border-radius: var(--radius-md);
+      padding: 0.85rem 0.95rem;
+      background: linear-gradient(135deg, rgba(35, 116, 255, 0.3), rgba(6, 8, 22, 0.98));
+      border: 1px solid rgba(130, 186, 255, 0.9);
+      box-shadow: 0 12px 26px rgba(15, 32, 80, 0.8);
+    }
+
+    .telegram-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffffff, #bfe2ff 16%, #2fa3ff 40%, #0b1e3a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .telegram-card a {
+      color: #eaf4ff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .telegram-card a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: var(--accent-strong);
+    }
+
+    footer {
+      margin-top: 2.4rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">OZ</div>
+        <div class="brand-text">
+          <span class="brand-title">Obotzone</span>
+          <span class="brand-sub">Playground • Tools • Tutorials</span>
+        </div>
+      </div>
+      <nav>
+        <a href="/" aria-label="Kembali ke beranda">
+          Home
+        </a>
+        <a href="/tutorials/" class="active">
+          <span class="dot"></span>
+          Tutorials
+        </a>
+        <a href="#contact">
+          Contact
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-pill-row">
+            <div class="pill">
+              <span class="pill-badge"></span>
+              <span><strong>Tutorial #2</strong> • Cloudflare Pages</span>
+            </div>
+            <div class="pill">
+              Untuk pemilik subdomain gratis & pemula
+            </div>
+          </div>
+
+          <h1 class="hero-title">
+            Menghubungkan <span class="highlight">Subdomain</span> ke Proyek Cloudflare Pages
+          </h1>
+
+          <div class="hero-meta">
+            <span>⏱ ± 15 menit</span>
+            <span>⚙ Level: Beginner</span>
+            <span>🔗 Contoh: subdomain dari penyedia seperti <code class="code-chip">*.digitalplat.org</code></span>
+          </div>
+
+          <p class="hero-lead">
+            Di tutorial ini kamu akan belajar cara mengarahkan subdomain milikmu
+            (misalnya <code class="code-chip">namaproject.digitalplat.org</code> atau subdomain lain)
+            ke proyek statis di <strong>Cloudflare Pages</strong>, sehingga website kamu bisa diakses
+            dengan alamat yang lebih mudah diingat dan terlihat profesional.
+          </p>
+
+          <div class="hero-cta-row">
+            <a href="#steps" class="btn btn-primary">
+              Mulai dari Langkah 1
+            </a>
+            <a href="/tutorials/" class="btn btn-ghost">
+              ← Kembali ke daftar tutorial
+            </a>
+          </div>
+
+          <p class="hero-note">
+            Tip: kalau subdomainmu sudah punya <strong>exposure</strong> dan
+            websitenya konsisten bermanfaat, trafik organik akan mengikuti — bahkan
+            untuk subdomain gratis sekalipun.
+          </p>
+        </div>
+      </section>
+
+      <div class="layout-main">
+        <!-- KOLUM UTAMA: LANGKAH-LANGKAH -->
+        <section id="steps" class="card">
+          <div class="card-header">
+            <h2 class="card-title">Langkah demi langkah</h2>
+            <span class="badge">Guided Setup</span>
+          </div>
+
+          <div class="steps">
+            <article class="step">
+              <h3 class="step-title">Pastikan proyek Cloudflare Pages kamu sudah online</h3>
+              <div class="step-body">
+                <p>
+                  Sebelum menghubungkan subdomain, pastikan kamu sudah punya
+                  proyek aktif di <strong>Cloudflare Pages</strong>. Minimal:
+                </p>
+                <ul>
+                  <li>Sudah membuat proyek dan deploy dari Git (GitHub/GitLab) atau upload manual.</li>
+                  <li>Website bisa dibuka di alamat bawaan seperti
+                    <code class="code-chip">namaproject.pages.dev</code>.
+                  </li>
+                </ul>
+                <p class="tip">
+                  <strong>Belum punya?</strong> Selesaikan dulu Tutorial #1 tentang
+                  membuat project pertama di Cloudflare Pages.
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <h3 class="step-title">Catat alamat default Cloudflare Pages</h3>
+              <div class="step-body">
+                <p>
+                  Buka dashboard Cloudflare → pilih menu <strong>Pages</strong> →
+                  klik proyek yang ingin kamu hubungkan.
+                </p>
+                <p>
+                  Di bagian atas biasanya tertulis alamat default, misalnya:
+                </p>
+                <ul>
+                  <li><code class="code-chip">namaproject.pages.dev</code></li>
+                </ul>
+                <p>
+                  <strong>Catat persis</strong> alamat ini, karena akan digunakan
+                  sebagai target di DNS (CNAME).
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <h3 class="step-title">Tentukan subdomain yang ingin kamu pakai</h3>
+              <div class="step-body">
+                <p>
+                  Sekarang tentukan nama subdomain yang akan kamu gunakan sebagai
+                  alamat resmi website. Contoh:
+                </p>
+                <ul>
+                  <li><code class="code-chip">portfolio.digitalplat.org</code></li>
+                  <li><code class="code-chip">projekmu.digitalplat.org</code></li>
+                  <li><code class="code-chip">brandkamu.digitalplat.org</code></li>
+                </ul>
+                <p class="tip">
+                  <strong>Penting:</strong> di beberapa penyedia subdomain, kamu
+                  bisa memilih banyak ekstensi (misalnya beberapa pola subdomain).
+                  Sesuaikan dengan opsi yang tersedia di penyedia yang kamu gunakan.
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <h3 class="step-title">Buat CNAME record ke Cloudflare Pages</h3>
+              <div class="step-body">
+                <p>
+                  Di sini konsepnya sederhana: <strong>subdomain</strong> kamu
+                  akan diarahkan ke <strong>alamat .pages.dev</strong> milik
+                  proyekmu menggunakan <strong>DNS CNAME</strong>.
+                </p>
+                <p>
+                  Masuk ke panel DNS tempat subdomain dikelola. Jika kamu mendapat
+                  subdomain dari penyedia seperti <strong>digitalplat.org</strong>,
+                  biasanya admin mereka yang akan membuat CNAME ini untukmu.
+                </p>
+                <p>Format umumnya:</p>
+                <ul>
+                  <li><strong>Type:</strong> CNAME</li>
+                  <li><strong>Name/Host:</strong> bagian depan subdomain
+                    (misal: <code class="code-chip">portfolio</code>)</li>
+                  <li><strong>Target:</strong> alamat Pages kamu, misalnya
+                    <code class="code-chip">namaproject.pages.dev</code></li>
+                  <li><strong>TTL:</strong> Auto</li>
+                  <li><strong>Proxy:</strong> <em>On</em> (di Cloudflare biasanya icon oranye)</li>
+                </ul>
+                <p class="tip">
+                  Kalau kamu adalah admin domain <strong>digitalplat.org</strong>,
+                  CNAME dibuat pada zona domain itu. Kalau kamu hanya pengguna
+                  subdomain, cukup kirimkan data di atas ke admin/penyedia
+                  subdomain.
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <h3 class="step-title">Tambahkan custom domain di Cloudflare Pages</h3>
+              <div class="step-body">
+                <p>
+                  Setelah DNS diarahkan, kembali ke dashboard Cloudflare Pages:
+                </p>
+                <ul>
+                  <li>Buka proyek yang sama.</li>
+                  <li>Pilih tab <strong>Custom domains</strong>.</li>
+                  <li>Klik <strong>Set up a custom domain</strong>.</li>
+                  <li>Masukkan subdomain lengkap, misalnya:
+                    <code class="code-chip">portfolio.digitalplat.org</code>.
+                  </li>
+                </ul>
+                <p>
+                  Cloudflare akan melakukan verifikasi DNS. Jika CNAME sudah benar,
+                  status akan berubah menjadi <strong>Active</strong> dan HTTPS
+                  otomatis dibuat.
+                </p>
+                <p class="tip">
+                  Proses aktivasi HTTPS bisa butuh beberapa menit. Tunggu sampai
+                  status SSL/TLS-nya sudah hijau sebelum kamu tes di browser.
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <h3 class="step-title">Uji akses & perbaiki kalau belum tersambung</h3>
+              <div class="step-body">
+                <p>Coba buka subdomain kamu di browser:</p>
+                <ul>
+                  <li><code class="code-chip">https://portfolio.digitalplat.org</code></li>
+                </ul>
+                <p>
+                  Jika halaman dari Cloudflare Pages muncul, artinya konfigurasi
+                  berhasil. Kalau belum:
+                </p>
+                <ul>
+                  <li>Cek lagi CNAME: apakah sudah mengarah ke
+                    <code class="code-chip">namaproject.pages.dev</code> yang benar?
+                  </li>
+                  <li>Cek ejaan subdomain: tidak ada spasi/karakter asing.</li>
+                  <li>Tunggu 5–10 menit untuk propagasi DNS.</li>
+                </ul>
+                <p class="tip">
+                  Masih error? Kamu bisa minta <strong>admin penyedia
+                  subdomain</strong> (misalnya penyedia digitalplat.org) untuk
+                  cek ulang DNS, atau konsultasi langsung via kontak support
+                  yang mereka sediakan.
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <h3 class="step-title">Optimalkan branding & exposure subdomainmu</h3>
+              <div class="step-body">
+                <p>
+                  Setelah subdomain tersambung, jangan berhenti di teknis saja.
+                  Agar alamatmu bermanfaat untuk jangka panjang:
+                </p>
+                <ul>
+                  <li>Pastikan isi websitenya <strong>benar-benar membantu</strong> orang lain.</li>
+                  <li>Update konten secara berkala (bukan sekadar “landing page kosong”).</li>
+                  <li>Bagikan link di media sosial, grup, atau komunitas relevan.</li>
+                  <li>Gunakan nama subdomain yang <strong>konsisten dengan brand-mu</strong>.</li>
+                </ul>
+                <p class="tip">
+                  Subdomain gratis + konten yang kuat = kombinasi yang bisa
+                  tetap mendatangkan <strong>trafik organik</strong>, apalagi
+                  kalau sudah punya exposure dari waktu ke waktu.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <a href="/tutorials/" class="back-link">
+            ← Kembali ke daftar semua tutorial
+          </a>
+        </section>
+
+        <!-- KOLUM SAMPING: CATATAN & KONTAK -->
+        <aside class="side-column">
+          <div class="callout">
+            <h3 class="callout-title">Ringkasan singkat</h3>
+            <p>
+              Di tutorial #2 ini kamu belajar:
+            </p>
+            <ul>
+              <li>Mengecek proyek aktif di Cloudflare Pages.</li>
+              <li>Menentukan subdomain yang ingin dipakai.</li>
+              <li>Membuat CNAME dari subdomain ke alamat <code class="code-chip">.pages.dev</code>.</li>
+              <li>Mendaftarkan subdomain sebagai <strong>Custom Domain</strong> di Pages.</li>
+              <li>Testing & troubleshooting dasar jika belum tersambung.</li>
+            </ul>
+          </div>
+
+          <div class="note-card">
+            <p>
+              <strong>Catatan untuk pengguna subdomain gratis:</strong><br />
+              Jika kamu mendapatkan subdomain dari penyedia seperti
+              <em>digitalplat.org</em>, biasanya kamu <strong>tidak perlu</strong>
+              menyentuh DNS sendiri. Cukup:
+            </p>
+            <ul>
+              <li>Request nama subdomain yang kamu inginkan.</li>
+              <li>Kirimkan alamat <code class="code-chip">namaproject.pages.dev</code> ke admin.</li>
+              <li>Tunggu admin menyetel CNAME di sisi mereka.</li>
+            </ul>
+          </div>
+
+          <div id="contact" class="telegram-card">
+            <div class="telegram-icon">TG</div>
+            <div>
+              <div><strong>Butuh dibimbing langsung?</strong></div>
+              <div>
+                Kamu bisa kontak saya via Telegram:
+                <a href="https://t.me/obotzone19" target="_blank" rel="noopener">@obotzone19</a>
+                untuk konsultasi teknis singkat seputar Cloudflare Pages & subdomain.
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      Tutorial #2 • Obotzone — Cloudflare Pages & Subdomain Playbook
+    </footer>
+  </div>
+</body>
+</html>
+
