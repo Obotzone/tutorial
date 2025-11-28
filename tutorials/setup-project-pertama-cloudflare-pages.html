@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #3 – Setup Project Pertama Cloudflare Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Tutorial #3: Cara membuat project pertama di Cloudflare Pages. Mulai dari membuat project baru, memilih source GitHub, konfigurasi build, hingga website pertama kamu online." />
+
+  <link rel="stylesheet" href="/assets/css/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">3</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <main class="layout">
+
+      <!-- CONTENT -->
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>Setup Project Cloudflare Pages</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>level dasar • project pertama online</span>
+        </div>
+
+        <h1>Setup Project Pertama di Cloudflare Pages</h1>
+        <p class="subtitle">
+          Di tutorial ini kamu akan membuat project pertama di Cloudflare Pages:
+          mulai dari memilih repository GitHub, menghubungkan akun, hingga website kamu resmi online.
+        </p>
+
+        <article class="content">
+
+          <h2 id="masuk-dashboard">1. Masuk ke dashboard Cloudflare</h2>
+          <p>
+            Kunjungi: <code>https://dash.cloudflare.com/</code>  
+            Masuk dengan akun Cloudflare yang sudah kamu buat sebelumnya.
+          </p>
+
+          <div class="highlight">
+            Pastikan akun kamu sudah terhubung dengan GitHub.  
+            Jika belum, Cloudflare akan meminta izin saat proses setup project.
+          </div>
+
+          <h2 id="create-project">2. Membuat Project Baru</h2>
+          <p>
+            Di menu sidebar kiri, pilih:
+          </p>
+
+          <ul>
+            <li><strong>Workers & Pages</strong></li>
+            <li>Pilih tab <strong>Pages</strong></li>
+            <li>Klik tombol <strong>Create a Project</strong></li>
+          </ul>
+
+          <p>Kemudian pilih opsi:</p>
+          <ul>
+            <li><strong>Connect to Git</strong></li>
+          </ul>
+
+          <div class="highlight">
+            Cloudflare Pages akan membaca repository GitHub kamu untuk menampilkan daftar repositori yang bisa dipilih.
+          </div>
+
+          <h2 id="pilih-repo">3. Pilih Repository GitHub</h2>
+          <p>
+            Pilih repositori yang berisi file website kamu, misalnya:
+          </p>
+          <ul>
+            <li><code>obotzone-landing</code></li>
+            <li><code>digitalplat-tutorial</code></li>
+            <li><code>mywebsite</code> (contoh)</li>
+          </ul>
+
+          <p>
+            Lalu klik <strong>Begin setup</strong>.
+          </p>
+
+          <h2 id="build-setting">4. Atur Build Settings</h2>
+          <p>
+            Karena project kamu adalah website statis (HTML + CSS), maka pengaturannya sederhana.
+          </p>
+
+          <ul>
+            <li><strong>Framework preset:</strong> None</li>
+            <li><strong>Build command:</strong> *(biarkan kosong)*</li>
+            <li><strong>Build output directory:</strong> <code>/</code></li>
+          </ul>
+
+          <div class="highlight">
+            Kenapa kosong?  
+            Karena Cloudflare hanya perlu menyalin file statismu apa adanya.  
+            Tidak perlu proses build apa pun seperti React, Next, atau Svelte.
+          </div>
+
+          <h2 id="deploy">5. Klik “Deploy”</h2>
+          <p>
+            Setelah konfigurasi selesai, klik:
+          </p>
+          <ul>
+            <li><strong>Save and Deploy</strong></li>
+          </ul>
+
+          <p>
+            Cloudflare Pages akan melakukan build pertama.  
+            Biasanya hanya memakan waktu 5–20 detik.
+          </p>
+
+          <div class="highlight">
+            Jika berhasil, kamu akan melihat status:  
+            <strong>Build completed successfully</strong>.
+          </div>
+
+          <h2 id="akses-url">6. Akses URL website kamu</h2>
+          <p>
+            Setelah build selesai, Cloudflare Pages akan memberikan URL default:
+          </p>
+
+          <div class="highlight">
+            <strong>https://nama-project.pages.dev</strong>
+          </div>
+
+          <p>
+            Website kamu sekarang sudah online dan bisa diakses publik.
+          </p>
+
+          <h2 id="siap-lanjut">7. Project pertama siap! Lanjut ke konfigurasi berikutnya</h2>
+          <p>
+            Setelah project kamu online, langkah berikutnya adalah:
+          </p>
+
+          <ul>
+            <li>Menghubungkan domain utama (atau subdomain dari digitalplat.org).</li>
+            <li>Membuat halaman baru menggunakan struktur folder rapi.</li>
+            <li>Menambahkan subdomain untuk kebutuhan exposure.</li>
+          </ul>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/struktur-project-cloudflare-pages.html">← Kembali ke Tutorial #2</a>
+          <a class="btn-next" href="/tutorials/menghubungkan-domain-kustom.html">
+            Lanjut ke Tutorial #4 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi halaman</div>
+          <ul>
+            <li><a href="#masuk-dashboard">Masuk dashboard</a></li>
+            <li><a href="#create-project">Membuat project</a></li>
+            <li><a href="#pilih-repo">Pilih repository</a></li>
+            <li><a href="#build-setting">Build settings</a></li>
+            <li><a href="#deploy">Deploy project</a></li>
+            <li><a href="#akses-url">Akses URL</a></li>
+            <li><a href="#siap-lanjut">Siap lanjut</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Catatan</div>
+          <p>
+            Untuk project statis, cukup upload file HTML + CSS di GitHub.
+            Cloudflare otomatis men-deploy tanpa build command.
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Bantuan</div>
+          <p>
+            Jika error atau build gagal, tanya via Telegram:<br />
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
+
