@@ -3,161 +3,13 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Tutorial #2 – Struktur Project untuk Cloudflare Pages</title>
+  <title>Tutorial #2 – Struktur Project di Cloudflare Pages</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Tutorial #2: Struktur project yang benar untuk Cloudflare Pages. Folder, file, best practice, dan cara membuat project siap deploy." />
+  <meta name="description"
+    content="Tutorial #2: Struktur folder & file untuk project Cloudflare Pages. Mulai dari index.html, assets, hingga struktur untuk banyak halaman dan subfolder tutorial." />
 
-  <!-- STYLE TEMPLATE MASTER (SAMA PERSIS DENGAN TUTORIAL #1) -->
-  <style>
-    :root {
-      --bg: #020617;
-      --bg-top: #1e293b;
-      --card: #0f172a;
-      --accent: #38bdf8;
-      --accent-strong: #0ea5e9;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --border: rgba(148, 163, 184, 0.25);
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body {
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top, var(--bg-top) 0, var(--bg) 50%);
-      color: var(--text);
-      line-height: 1.65;
-      padding: 24px 16px 40px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .page { width: 100%; max-width:1080px; }
-
-    header {
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom:22px; flex-wrap:wrap; gap:12px;
-    }
-
-    .brand { display:flex; gap:10px; align-items:center; }
-
-    .brand-logo {
-      width:34px; height:34px; border-radius:999px;
-      background: radial-gradient(circle at 30% 20%, #38bdf8, #0ea5e9 45%, #0369a1);
-      display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:18px; color:#e0f2fe;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,0.25);
-    }
-
-    .brand-text-main { font-weight:600; font-size:15px; letter-spacing:.03em; }
-    .brand-text-sub { font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
-
-    .tutorial-tag {
-      padding:5px 12px; border-radius:999px; border:1px solid var(--border);
-      display:flex; align-items:center; gap:7px; font-size:11px;
-      background:rgba(15,23,42,0.6);
-    }
-    .tutorial-tag .badge {
-      width:18px; height:18px; border-radius:999px;
-      background:var(--accent-soft); color:var(--accent-strong);
-      display:flex; justify-content:center; align-items:center;
-      font-size:11px; font-weight:600;
-    }
-
-    .layout {
-      display:grid; grid-template-columns:1.8fr 0.9fr; gap:24px;
-    }
-    @media(max-width:860px){ .layout { grid-template-columns:1fr; } }
-
-    .card-main {
-      background:var(--card); border-radius:var(--radius-lg);
-      padding:26px; border:1px solid var(--border);
-      box-shadow:var(--shadow);
-    }
-
-    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:12px; }
-    .breadcrumb a { color:var(--muted); text-decoration:none; }
-
-    .pill {
-      padding:4px 12px; border-radius:999px; border:1px solid var(--border);
-      display:inline-flex; align-items:center; gap:6px;
-      background:rgba(15,23,42,0.9);
-      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-      margin-bottom:12px;
-    }
-
-    .pill-dot {
-      width:8px; height:8px; border-radius:999px;
-      background:var(--accent);
-      box-shadow:0 0 0 4px rgba(56,189,248,0.2);
-    }
-
-    h1 { font-size:26px; margin-bottom:10px; }
-
-    .subtitle {
-      font-size:14px; color:var(--muted);
-      max-width:600px; margin-bottom:20px;
-    }
-
-    .content {
-      background:rgba(15,23,42,0.92); padding:18px;
-      border-radius:var(--radius-md);
-      border:1px solid rgba(148,163,184,0.18);
-      font-size:14px;
-    }
-
-    .content h2 { font-size:17px; margin-top:16px; margin-bottom:6px; }
-    .content ul { margin:6px 0 12px 20px; }
-    .content li { margin-bottom:5px; }
-
-    .highlight {
-      margin:12px 0; padding:12px;
-      background:rgba(56,189,248,0.08);
-      border-left:3px solid var(--accent-strong);
-      border-radius:var(--radius-md);
-      font-size:13px;
-    }
-
-    .sidebar { display:flex; flex-direction:column; gap:16px; }
-
-    .box {
-      background:rgba(15,23,42,0.92); border-radius:var(--radius-md);
-      border:1px solid rgba(148,163,184,0.18);
-      padding:16px; font-size:13px;
-    }
-
-    .box-title {
-      font-size:13px; text-transform:uppercase;
-      letter-spacing:.16em; margin-bottom:8px; color:var(--muted);
-    }
-
-    .toc ul { list-style:none; }
-    .toc li { margin-bottom:6px; }
-    .toc a { color:var(--text); text-decoration:none; }
-
-    .box-telegram a {
-      color:var(--accent-strong); text-decoration:none;
-    }
-
-    .footer-nav {
-      margin-top:20px; display:flex;
-      justify-content:space-between; flex-wrap:wrap;
-      font-size:13px; gap:10px;
-    }
-
-    .btn-next {
-      padding:6px 16px; border-radius:999px;
-      background:linear-gradient(135deg, var(--accent-strong), #22c55e);
-      color:#0b1120; text-decoration:none;
-      font-weight:600; display:inline-flex;
-      align-items:center; gap:8px;
-      box-shadow:0 10px 28px rgba(34,197,94,0.35);
-    }
-  </style>
+  <!-- STYLE TEMPLATE MASTER -->
+  <link rel="stylesheet" href="/tutorial.css" />
 </head>
 
 <body>
@@ -193,75 +45,108 @@
 
         <div class="pill">
           <div class="pill-dot"></div>
-          <span>level dasar • langkah awal</span>
+          <span>level dasar • rapikan pondasi</span>
         </div>
 
-        <h1>Struktur Project untuk Cloudflare Pages</h1>
+        <h1>Struktur Project di Cloudflare Pages</h1>
         <p class="subtitle">
-          Setelah mengenal konsep Cloudflare Pages, kini kamu belajar cara menata folder dan file supaya website statis kamu siap untuk proses deployment yang mulus.
+          Sebelum main ke setting Cloudflare Pages, struktur folder & file harus rapi dulu.  
+          Di tutorial ini kita atur pola yang konsisten: dari <code>index.html</code>,
+          folder <code>assets</code>, sampai subfolder <code>/tutorials/</code> seperti yang dipakai Obotzone.
         </p>
 
         <article class="content">
 
-          <h2 id="struktur-dasar">1. Struktur folder dasar</h2>
+          <h2 id="konsep">1. Konsep dasar struktur project</h2>
           <p>
-            Cloudflare Pages bekerja paling optimal jika struktur project kamu rapi dan konsisten seperti berikut:
+            Cloudflare Pages membaca isi folder project kamu persis seperti struktur di file manager:
+            apa yang ada di dalam project itulah yang akan menjadi URL di browser.
+            Jadi, kalau struktur dari awal sudah rapi, ke depannya makin mudah dikembangkan.
           </p>
 
           <div class="highlight">
-            <pre><code>/
+            <strong>Prinsipnya:</strong>  
+            <em>“Satu project = satu folder rapi, URL mengikuti struktur folder.”</em>
+          </div>
+
+          <h2 id="struktur-minimum">2. Struktur minimum yang disarankan</h2>
+          <p>Untuk landing page + tutorial seperti Obotzone, struktur dasar yang nyaman adalah:</p>
+
+<pre><code>root-project/
 ├─ index.html
-├─ about.html   (opsional)
-├─ tutorials/   (folder halaman tutorial)
-│   └─ index.html
 ├─ assets/
-│   ├─ css/
-│   │   └─ style.css
-│   ├─ img/
-│   └─ js/
-└─ README.md (opsional)</code></pre>
-          </div>
+│  ├─ css/
+│  │  └─ tutorial.css
+│  ├─ img/
+│  └─ js/
+└─ tutorials/
+   ├─ index.html
+   ├─ pengenalan-cloudflare-pages.html
+   └─ struktur-project-cloudflare-pages.html
+</code></pre>
 
-          <p>
-            <strong>index.html</strong> wajib ada dan menjadi halaman utama.  
-            Folder <code>assets</code> menyimpan semua gambar, css, dan script.
-          </p>
-
-          <h2 id="landing">2. Memisahkan landing page & tutorial</h2>
           <ul>
-            <li><strong>/index.html</strong> → landing page utama Obotzone</li>
-            <li><strong>/tutorials/</strong> → semua halaman tutorial</li>
-            <li>Setiap tutorial punya 1 file HTML sendiri</li>
+            <li><strong>index.html</strong> → halaman utama/landing page.</li>
+            <li><strong>assets/css/</strong> → tempat semua file CSS (termasuk <code>tutorial.css</code>).</li>
+            <li><strong>assets/img/</strong> → ikon, ilustrasi, logo, dsb.</li>
+            <li><strong>tutorials/</strong> → semua halaman tutorial disimpan di sini.</li>
           </ul>
 
-          <h2 id="keuntungan">3. Kenapa struktur ini penting?</h2>
+          <h2 id="penamaan">3. Aturan penamaan file & URL</h2>
+          <p>Supaya SEO friendly dan rapi, pakai pola penamaan seperti ini:</p>
           <ul>
-            <li>Memudahkan Cloudflare membaca file statis.</li>
-            <li>Memudahkan kamu update satu halaman tanpa merusak halaman lain.</li>
-            <li>URL menjadi lebih rapi dan SEO-friendly.</li>
-          </ul>
-
-          <h2 id="siap-deploy">4. Pastikan project siap deploy</h2>
-          <p>Checklist sebelum deploy:</p>
-          <ul>
-            <li>Ada file <code>index.html</code> di root.</li>
-            <li>Ada folder <code>/assets/css/style.css</code>.</li>
-            <li>Link relatif benar, contoh:
-              <code>href="/assets/css/style.css"</code>
-            </li>
-            <li>Folder tutorial lengkap & link-nya tidak error.</li>
+            <li>Gunakan <strong>huruf kecil semua</strong>.</li>
+            <li>Ganti spasi dengan <strong>-</strong> (dash), misal: <code>pengenalan-cloudflare-pages.html</code>.</li>
+            <li>Nama file usahakan jelas menjelaskan isi halaman.</li>
           </ul>
 
           <div class="highlight">
-            Jika semua sudah rapi → project siap dideploy ke Cloudflare Pages tanpa error.
+            <strong>Contoh mapping:</strong><br />
+            File: <code>/tutorials/pengenalan-cloudflare-pages.html</code><br />
+            URL: <code>https://namaproject.pages.dev/tutorials/pengenalan-cloudflare-pages.html</code>
           </div>
+
+          <h2 id="multi-halaman">4. Menyiapkan struktur untuk banyak tutorial</h2>
+          <p>
+            Karena Obotzone dan digitalplat.org akan punya banyak tutorial,
+            dari awal kita sudah siapkan struktur yang scalable:
+          </p>
+          <ul>
+            <li><code>/tutorials/index.html</code> → hub/daftar semua tutorial.</li>
+            <li><code>/tutorials/pengenalan-cloudflare-pages.html</code> → Tutorial #1.</li>
+            <li><code>/tutorials/struktur-project-cloudflare-pages.html</code> → Tutorial #2.</li>
+            <li>Ke depan, Tutorial #3, #4, dst tinggal ditambah di folder yang sama.</li>
+          </ul>
+
+          <h2 id="contoh-obotzone">5. Contoh alur khusus untuk jaringan Obotzone</h2>
+          <p>
+            Misalnya satu subdomain dari digitalplat.org diarahkan ke project ini.
+            Ketika pengunjung datang ke landing page, mereka bisa:
+          </p>
+          <ul>
+            <li>Membaca penjelasan domain/subdomain gratis.</li>
+            <li>Lanjut ke menu tutorial di <code>/tutorials/</code>.</li>
+            <li>Menerapkan sendiri di subdomain mereka yang di-host di Cloudflare Pages.</li>
+          </ul>
+
+          <div class="highlight">
+            <strong>Intinya:</strong>  
+            Satu struktur rapi → mudah di-maintain → mudah dikembangkan → enak dijelaskan ke orang lain.
+          </div>
+
+          <h2 id="checklist">6. Checklist sebelum lanjut ke konfigurasi</h2>
+          <ul>
+            <li>Folder project sudah punya <code>index.html</code>.</li>
+            <li>Folder <code>assets/css/</code> sudah berisi <code>tutorial.css</code>.</li>
+            <li>Folder <code>tutorials/</code> sudah ada minimal 2 halaman: Tutorial #1 dan #2.</li>
+            <li>Semua link internal sudah saling terhubung (home → tutorials → masing-masing tutorial).</li>
+          </ul>
 
         </article>
 
-        <!-- FOOTER NAV -->
         <div class="footer-nav">
-          <a href="/tutorials/index.html">← Kembali ke daftar tutorial</a>
-          <a class="btn-next" href="/tutorials/deploy-cloudflare-pages.html">
+          <a href="/tutorials/pengenalan-cloudflare-pages.html">← Kembali ke Tutorial #1</a>
+          <a class="btn-next" href="/tutorials/setup-project-pertama-cloudflare-pages.html">
             Lanjut ke Tutorial #3 →
           </a>
         </div>
@@ -274,29 +159,33 @@
         <div class="box toc">
           <div class="box-title">Isi halaman</div>
           <ul>
-            <li><a href="#struktur-dasar">Struktur Folder Dasar</a></li>
-            <li><a href="#landing">Landing Page & Tutorial</a></li>
-            <li><a href="#keuntungan">Keuntungan Struktur Rapi</a></li>
-            <li><a href="#siap-deploy">Checklist Deploy</a></li>
+            <li><a href="#konsep">Konsep dasar struktur</a></li>
+            <li><a href="#struktur-minimum">Struktur minimum</a></li>
+            <li><a href="#penamaan">Aturan penamaan</a></li>
+            <li><a href="#multi-halaman">Multi halaman tutorial</a></li>
+            <li><a href="#contoh-obotzone">Contoh untuk Obotzone</a></li>
+            <li><a href="#checklist">Checklist akhir</a></li>
           </ul>
         </div>
 
         <div class="box">
-          <div class="box-title">Bantuan</div>
+          <div class="box-title">Pattern Obotzone</div>
           <p>
-            Tanya atau konsultasi teknis via Telegram:<br>
-            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+            Template ini dipakai supaya semua halaman tutorial terasa konsisten:
+            layout sama, gaya sama, fokus ke isi materi.
+          </p>
+          <p>
+            Tinggal duplikat file, ganti judul + konten, dan sesuaikan link
+            <code>href</code>-nya.
           </p>
         </div>
 
         <div class="box">
-          <div class="box-title">Checklist</div>
-          <ul>
-            <li>Struktur folder rapi.</li>
-            <li>Asset terorganisir.</li>
-            <li>Tidak ada link rusak.</li>
-            <li>Siap masuk Tutorial #3.</li>
-          </ul>
+          <div class="box-title">Butuh bantuan?</div>
+          <p>
+            Kalau bingung soal struktur folder atau URL, kamu bisa tanya langsung via Telegram:<br />
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
         </div>
 
       </aside>
