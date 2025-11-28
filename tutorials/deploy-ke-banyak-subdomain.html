@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #9 – Maintenance & Update Jangka Panjang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Tutorial #9: Strategi maintenance, update rutin, dan pengelolaan banyak project Cloudflare Pages & subdomain digitalplat.org untuk exposure Obotzone dalam jangka panjang." />
+
+  <!-- GUNAKAN CSS TEMPLATE TUTORIAL GLOBAL -->
+  <link rel="stylesheet" href="/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">9</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- MAIN GRID -->
+    <main class="layout">
+
+      <!-- LEFT PANEL -->
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>Maintenance & Update Jangka Panjang</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>level lanjutan • strategi jangka panjang</span>
+        </div>
+
+        <h1>Maintenance & Update Jangka Panjang</h1>
+        <p class="subtitle">
+          Cloudflare Pages + jaringan subdomain digitalplat.org akan makin kuat kalau dirawat.
+          Di tutorial ini, kita bahas pola maintenance, update konten, dan cara menjaga
+          “ekosistem exposure Obotzone” tetap sehat & tumbuh dalam jangka panjang.
+        </p>
+
+        <article class="content">
+
+          <h2 id="maintenance">1. Kenapa maintenance itu penting?</h2>
+          <p>
+            Banyak orang bisa <em>launch</em> website, tapi tidak semua bisa <em>memelihara</em> website.
+            Padahal yang membuat nilai sebuah domain/subdomain meningkat adalah:
+          </p>
+          <ul>
+            <li>Konten yang terus diperbarui dan relevan.</li>
+            <li>Pengalaman pengunjung yang konsisten dan nyaman.</li>
+            <li>Minim error (404, layout rusak, link mati).</li>
+            <li>Brand yang terlihat aktif, bukan “mati suri”.</li>
+          </ul>
+
+          <div class="highlight">
+            <strong>Intinya:</strong> Semakin sering kamu merawat & mengembangkan konten,
+            semakin kuat reputasi Obotzone dan semakin bernilai jaringan subdomain
+            yang di-host di Cloudflare Pages + digitalplat.org.
+          </div>
+
+          <h2 id="workflow">2. Workflow update yang sederhana tapi rapi</h2>
+          <p>
+            Untuk level pro, kamu butuh pola kerja yang berulang dan mudah diikuti.
+            Contoh workflow harian/mingguan:
+          </p>
+          <ul>
+            <li><strong>1. Cek ide konten</strong> – landing page baru, tutorial baru, atau update teks yang lama.</li>
+            <li><strong>2. Edit di lokal</strong> – ubah file HTML/CSS di editor favorit (VS Code).</li>
+            <li><strong>3. Cek tampilan</strong> – buka di browser, pastikan layout konsisten dengan template.</li>
+            <li><strong>4. Deploy ke Cloudflare Pages</strong> – push perubahan atau upload seperti biasa.</li>
+            <li><strong>5. Cek live</strong> – pastikan semua link, tombol, dan navigasi berjalan.</li>
+          </ul>
+
+          <p>
+            Jangan lupa selalu jaga konsistensi:
+          </p>
+          <ul>
+            <li>Gunakan template yang sama untuk halaman tutorial (CSS global).</li>
+            <li>Gunakan struktur URL yang rapi dan mudah diingat.</li>
+            <li>Pastikan setiap halaman punya navigasi “kembali ke daftar tutorial” dan “lanjut ke berikutnya”.</li>
+          </ul>
+
+          <h2 id="monitoring">3. Monitoring error & build di Cloudflare Pages</h2>
+          <p>
+            Setiap kali kamu melakukan perubahan, Cloudflare Pages akan melakukan proses build
+            (kalau pakai build otomatis) atau langsung menampilkan file statis yang kamu upload.
+          </p>
+          <ul>
+            <li><strong>Cek tab “Deployments”</strong> di Cloudflare Pages untuk melihat status:</li>
+            <ul>
+              <li>✅ <em>Success</em> – website siap diakses.</li>
+              <li>⚠️ <em>Failed</em> – cek log build (kalau pakai build step) untuk tahu kesalahan.</li>
+            </ul>
+            <li><strong>Uji manual</strong> – buka beberapa halaman penting, klik semua tombol utama.</li>
+            <li><strong>Cek di HP</strong> – pastikan tampilan responsif (mobile friendly).</li>
+          </ul>
+
+          <div class="highlight">
+            Tips: simpan daftar “halaman kritis” (home, /tutorials, landing utama)
+            yang selalu kamu cek singkat setiap selesai update.
+          </div>
+
+          <h2 id="network">4. Mengelola banyak subdomain digitalplat.org</h2>
+          <p>
+            Saat mulai banyak project, subdomain, dan eksperimen, kamu perlu sistem pencatatan
+            yang jelas. Contoh pendekatan:
+          </p>
+          <ul>
+            <li>Buat satu file <code>subdomain-map.md</code> atau spreadsheet berisi:</li>
+            <ul>
+              <li>Nama subdomain (misal: <code>belajar-landing.digitalplat.org</code>)</li>
+              <li>Fungsi: landing utama, eksperimen A/B, tutorial, portfolio, dll.</li>
+              <li>Terkait dengan project: Obotzone, kursus, tools, dsb.</li>
+              <li>Tanggal dibuat & tanggal terakhir update.</li>
+            </ul>
+            <li>Kelompokkan subdomain berdasarkan kategori:
+              <ul>
+                <li><strong>Core exposure</strong> – halaman yang paling penting untuk brand Obotzone.</li>
+                <li><strong>Eksperimen</strong> – halaman uji coba ide, copywriting, atau layout baru.</li>
+                <li><strong>Tutorial & edukasi</strong> – halaman yang bermanfaat bagi orang lain.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <p>
+            Semakin banyak konten bermanfaat yang lahir dari ekosistem ini, semakin kuat
+            posisi Obotzone sebagai pusat exposure dan digitalplat.org sebagai penyedia subdomain
+            yang “punya value” bukan hanya sekadar alamat kosong.
+          </p>
+
+          <h2 id="rutin">5. Jadwal rutin & checklist bulanan</h2>
+          <p>
+            Agar tidak kewalahan, buat <strong>jadwal ringan tapi konsisten</strong>:
+          </p>
+          <ul>
+            <li><strong>Mingguan</strong>:
+              <ul>
+                <li>Tambah/rapikan 1–2 konten (tutorial, tips, atau landing mini).</li>
+                <li>Cek tampilan utama di desktop & mobile.</li>
+              </ul>
+            </li>
+            <li><strong>Bulanan</strong>:
+              <ul>
+                <li>Review semua subdomain aktif – mana yang perlu di-update, mana yang sudah tidak relevan.</li>
+                <li>Perbarui link menuju halaman penting Obotzone (exposure utama).</li>
+                <li>Backup file proyek (zip & simpan di lokal / cloud storage).</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="highlight">
+            Fokus kamu: biarkan ekosistem ini tumbuh pelan tapi konsisten.
+            Lama-lama, exposure Obotzone + jaringan subdomain digitalplat.org akan
+            membentuk “peta” aset digital yang sangat kuat.
+          </div>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/tutorial-8.html">← Kembali ke Tutorial #8</a>
+          <a class="btn-next" href="/tutorials/tutorial-10.html">
+            (Opsional) Lanjut ke Tutorial #10 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi halaman</div>
+          <ul>
+            <li><a href="#maintenance">Kenapa maintenance penting?</a></li>
+            <li><a href="#workflow">Workflow update</a></li>
+            <li><a href="#monitoring">Monitoring & build</a></li>
+            <li><a href="#network">Mengelola banyak subdomain</a></li>
+            <li><a href="#rutin">Jadwal rutin & checklist</a></li>
+          </ul>
+        </div>
+
+        <div class="box box-telegram">
+          <div class="box-title">Butuh diskusi?</div>
+          <p>
+            Kalau kamu mau brainstorming struktur ekosistem subdomain atau
+            workflow maintenance yang lebih pro, kamu bisa kontak:
+            <br /><br />
+            Telegram:
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Checklist</div>
+          <ul>
+            <li>Paham pentingnya maintenance jangka panjang.</li>
+            <li>Punya workflow update yang jelas.</li>
+            <li>Mencatat dan mengelola banyak subdomain digitalplat.org.</li>
+            <li>Menyusun jadwal rutin mingguan/bulanan.</li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
