@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #4 – Menghubungkan Domain / Subdomain ke Cloudflare Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Tutorial #4: Panduan lengkap menghubungkan domain atau subdomain (termasuk dari digitalplat.org) ke Cloudflare Pages. DNS, CNAME, dan konfigurasi project." />
+
+  <link rel="stylesheet" href="/assets/css/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">4</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- MAIN GRID -->
+    <main class="layout">
+
+      <!-- LEFT CONTENT -->
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>Menghubungkan Domain Cloudflare Pages</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>level dasar • pengaturan domain</span>
+        </div>
+
+        <h1>Menghubungkan Domain / Subdomain ke Cloudflare Pages</h1>
+        <p class="subtitle">
+          Setelah project kamu online di <code>*.pages.dev</code>, sekarang saatnya
+          membuatnya profesional dengan domain atau subdomain kamu sendiri —
+          termasuk subdomain gratis digitalplat.org.
+        </p>
+
+        <article class="content">
+
+          <h2 id="apa-itu">1. Apa yang akan kita lakukan?</h2>
+          <p>
+            Cloudflare Pages mengizinkan kamu memakai **domain apa saja** selama kamu
+            punya akses DNS-nya.  
+            Yang bisa dipakai:
+          </p>
+
+          <ul>
+            <li>Domain pribadi (misal: <code>obotzone.id</code>)</li>
+            <li>Subdomain pribadi (misal: <code>blog.obotzone.id</code>)</li>
+            <li>Subdomain digitalplat.org (misal: <code>nama-user.digitalplat.org</code>)</li>
+          </ul>
+
+          <div class="highlight">
+            Intinya: selama kamu bisa mengubah DNS → kamu bisa hubungkan ke Pages.
+          </div>
+
+          <h2 id="masuk-pages">2. Masuk ke Dashboard Project Pages</h2>
+          <p>Buka:</p>
+          <p><code>Workers & Pages → Pages → Pilih project kamu</code></p>
+
+          <p>
+            Setelah masuk project, pilih tab:
+          </p>
+          <ul>
+            <li><strong>Custom Domains</strong></li>
+            <li>Klik tombol <strong>Set up a custom domain</strong></li>
+          </ul>
+
+          <h2 id="masukan-domain">3. Masukkan domain / subdomain kamu</h2>
+          <p>
+            Masukkan domain atau subdomain yang ingin kamu hubungkan.
+          </p>
+
+          <div class="highlight">
+            Contoh:  
+            <strong>landing.obotzone.id</strong>  
+            atau  
+            <strong>username.digitalplat.org</strong>
+          </div>
+
+          <p>Kemudian klik <strong>Continue</strong>.</p>
+
+          <h2 id="records">4. Cloudflare menampilkan DNS Records</h2>
+          <p>
+            Cloudflare Pages akan memberikan 1 record yang HARUS kamu buat:
+          </p>
+
+          <ul>
+            <li><strong>Type:</strong> CNAME</li>
+            <li><strong>Name:</strong> subdomain kamu</li>
+            <li><strong>Target:</strong> <code>nama-project.pages.dev</code></li>
+            <li><strong>Proxy:</strong> ON / Proxied (ikon oranye)</li>
+          </ul>
+
+          <div class="highlight">
+            Pastikan mode proxy (awan oranye) aktif.  
+            Ini penting agar SSL otomatis aktif.
+          </div>
+
+          <h2 id="dns-digitalplat">5. Untuk subdomain digitalplat.org</h2>
+          <p>
+            Jika kamu memakai penyedia subdomain gratis <strong>digitalplat.org</strong>,  
+            DNS editor biasanya berupa:
+          </p>
+
+          <ul>
+            <li>Panel DNS sederhana</li>
+            <li>Mendukung CNAME</li>
+            <li>Pengaturan propagasi cepat</li>
+          </ul>
+
+          <p>
+            Kamu cukup menambahkan:
+          </p>
+
+<pre><code>Type: CNAME
+Host: nama-kamu
+Target: nama-project.pages.dev
+Proxy: ON (jika ada)
+TTL: Auto
+</code></pre>
+
+          <div class="highlight">
+            Jangan gunakan <strong>A Record</strong>.  
+            Cloudflare Pages hanya bekerja dengan <strong>CNAME</strong>.
+          </div>
+
+          <h2 id="validasi">6. Validasi & aktifkan</h2>
+          <p>
+            Setelah DNS kamu buat, kembali ke Cloudflare Pages lalu klik:
+          </p>
+          <ul>
+            <li><strong>Check DNS</strong></li>
+          </ul>
+
+          <p>
+            Jika sudah sesuai, Cloudflare akan menampilkan tulisan:
+          </p>
+
+          <div class="highlight">
+            <strong>Custom domain is now active ✔</strong>
+          </div>
+
+          <h2 id="ssl">7. SSL otomatis aktif</h2>
+          <p>
+            Setelah domain aktif, Cloudflare akan membuat sertifikat SSL otomatis.
+            Biasanya butuh:
+          </p>
+
+          <ul>
+            <li>1 menit − 15 menit</li>
+          </ul>
+
+          <p>Kamu akan melihat status:</p>
+
+          <div class="highlight">
+            <strong>SSL/TLS: Active</strong>
+          </div>
+
+          <h2 id="siap-pakai">8. Domain kamu siap dipakai</h2>
+          <p>
+            Website kamu sekarang bisa diakses lewat domain atau subdomain yang kamu hubungkan.
+          </p>
+
+          <div class="highlight">
+            Contoh:  
+            <strong>https://tutorial.obotzone.id</strong><br />
+            atau  
+            <strong>https://nama-user.digitalplat.org</strong>
+          </div>
+
+          <p>
+            Ini jauh lebih profesional untuk portfolio, landing page, atau jaringan exposure Obotzone.
+          </p>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/setup-project-pertama-cloudflare-pages.html">← Kembali ke Tutorial #3</a>
+          <a class="btn-next" href="/tutorials/pengelolaan-dan-update-project.html">
+            Lanjut ke Tutorial #5 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi halaman</div>
+          <ul>
+            <li><a href="#apa-itu">Apa itu?</a></li>
+            <li><a href="#masuk-pages">Masuk Pages</a></li>
+            <li><a href="#masukan-domain">Masukkan domain</a></li>
+            <li><a href="#records">DNS CNAME</a></li>
+            <li><a href="#dns-digitalplat">Subdomain digitalplat.org</a></li>
+            <li><a href="#validasi">Validasi</a></li>
+            <li><a href="#ssl">SSL otomatis</a></li>
+            <li><a href="#siap-pakai">Domain siap pakai</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Catatan Penting</div>
+          <p>
+            Pastikan subdomain tidak dipakai di ruang lain.  
+            Jika pernah dipakai sebelumnya, hapus dulu record lamanya.
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Butuh Bantuan?</div>
+          <p>
+            Jika DNS tidak terhubung atau error SSL, hubungi saya di Telegram:<br />
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
