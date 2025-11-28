@@ -5,159 +5,10 @@
   <meta charset="UTF-8" />
   <title>Tutorial #1 – Pengenalan Cloudflare Pages</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Tutorial #1: Pengenalan lengkap Cloudflare Pages, konsep dasar, kelebihan, dan bagaimana ini mendukung ekosistem subdomain dan exposure Obotzone." />
-
-  <!-- STYLE TEMPLATE MASTER -->
-  <style>
-    :root {
-      --bg: #020617;
-      --bg-top: #1e293b;
-      --card: #0f172a;
-      --accent: #38bdf8;
-      --accent-strong: #0ea5e9;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --border: rgba(148, 163, 184, 0.25);
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body {
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top, var(--bg-top) 0, var(--bg) 50%);
-      color: var(--text);
-      line-height: 1.65;
-      padding: 24px 16px 40px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .page { width: 100%; max-width:1080px; }
-
-    header {
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom:22px; flex-wrap:wrap; gap:12px;
-    }
-
-    .brand { display:flex; gap:10px; align-items:center; }
-
-    .brand-logo {
-      width:34px; height:34px; border-radius:999px;
-      background: radial-gradient(circle at 30% 20%, #38bdf8, #0ea5e9 45%, #0369a1);
-      display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:18px; color:#e0f2fe;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,0.25);
-    }
-
-    .brand-text-main { font-weight:600; font-size:15px; letter-spacing:.03em; }
-    .brand-text-sub { font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
-
-    .tutorial-tag {
-      padding:5px 12px; border-radius:999px; border:1px solid var(--border);
-      display:flex; align-items:center; gap:7px; font-size:11px;
-      background:rgba(15,23,42,0.6);
-    }
-    .tutorial-tag .badge {
-      width:18px; height:18px; border-radius:999px;
-      background:var(--accent-soft); color:var(--accent-strong);
-      display:flex; justify-content:center; align-items:center;
-      font-size:11px; font-weight:600;
-    }
-
-    .layout {
-      display:grid; grid-template-columns:1.8fr 0.9fr; gap:24px;
-    }
-    @media(max-width:860px){ .layout { grid-template-columns:1fr; } }
-
-    .card-main {
-      background:var(--card); border-radius:var(--radius-lg);
-      padding:26px; border:1px solid var(--border);
-      box-shadow:var(--shadow);
-    }
-
-    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:12px; }
-    .breadcrumb a { color:var(--muted); text-decoration:none; }
-
-    .pill {
-      padding:4px 12px; border-radius:999px; border:1px solid var(--border);
-      display:inline-flex; align-items:center; gap:6px;
-      background:rgba(15,23,42,0.9);
-      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-      margin-bottom:12px;
-    }
-
-    .pill-dot {
-      width:8px; height:8px; border-radius:999px;
-      background:var(--accent);
-      box-shadow:0 0 0 4px rgba(56,189,248,0.2);
-    }
-
-    h1 { font-size:26px; margin-bottom:10px; }
-
-    .subtitle {
-      font-size:14px; color:var(--muted);
-      max-width:600px; margin-bottom:20px;
-    }
-
-    .content {
-      background:rgba(15,23,42,0.92); padding:18px;
-      border-radius:var(--radius-md);
-      border:1px solid rgba(148,163,184,0.18);
-      font-size:14px;
-    }
-
-    .content h2 { font-size:17px; margin-top:16px; margin-bottom:6px; }
-    .content ul { margin:6px 0 12px 20px; }
-    .content li { margin-bottom:5px; }
-
-    .highlight {
-      margin:12px 0; padding:12px;
-      background:rgba(56,189,248,0.08);
-      border-left:3px solid var(--accent-strong);
-      border-radius:var(--radius-md);
-      font-size:13px;
-    }
-
-    .sidebar { display:flex; flex-direction:column; gap:16px; }
-
-    .box {
-      background:rgba(15,23,42,0.92); border-radius:var(--radius-md);
-      border:1px solid rgba(148,163,184,0.18);
-      padding:16px; font-size:13px;
-    }
-
-    .box-title {
-      font-size:13px; text-transform:uppercase;
-      letter-spacing:.16em; margin-bottom:8px; color:var(--muted);
-    }
-
-    .toc ul { list-style:none; }
-    .toc li { margin-bottom:6px; }
-    .toc a { color:var(--text); text-decoration:none; }
-
-    .box-telegram a {
-      color:var(--accent-strong); text-decoration:none;
-    }
-
-    .footer-nav {
-      margin-top:20px; display:flex;
-      justify-content:space-between; flex-wrap:wrap;
-      font-size:13px; gap:10px;
-    }
-
-    .btn-next {
-      padding:6px 16px; border-radius:999px;
-      background:linear-gradient(135deg, var(--accent-strong), #22c55e);
-      color:#0b1120; text-decoration:none;
-      font-weight:600; display:inline-flex;
-      align-items:center; gap:8px;
-      box-shadow:0 10px 28px rgba(34,197,94,0.35);
-    }
-  </style>
+  <meta name="description" content="Tutorial #1: Pengenalan lengkap Cloudflare Pages, konsep dasar, kelebihan, dan bagaimana ini mendukung sistem subdomain digitalplat.org dan exposure Obotzone." />
+  
+  <!-- Load global tutorial CSS -->
+  <link rel="stylesheet" href="/assets/css/tutorial.css">
 </head>
 
 <body>
@@ -179,62 +30,66 @@
       </div>
     </header>
 
-    <!-- MAIN GRID -->
+    <!-- MAIN LAYOUT -->
     <main class="layout">
 
       <!-- LEFT PANEL -->
       <section class="card-main">
 
+        <!-- BREADCRUMB -->
         <nav class="breadcrumb">
           <a href="/index.html">Beranda</a> ›
           <a href="/tutorials/index.html">Tutorial</a> ›
           <span>Pengenalan Cloudflare Pages</span>
         </nav>
 
+        <!-- LABEL -->
         <div class="pill">
           <div class="pill-dot"></div>
           <span>level dasar • fondasi dulu</span>
         </div>
 
+        <!-- TITLE -->
         <h1>Pengenalan Cloudflare Pages</h1>
         <p class="subtitle">
-          Dasar paling penting sebelum masuk ke teknis: memahami konsep Cloudflare Pages, cara kerjanya, apa kelebihannya, dan bagaimana ini mendukung sistem subdomain & exposure Obotzone.
+          Dasar paling penting sebelum masuk ke teknis: memahami konsep Cloudflare Pages, cara kerjanya, apa kelebihannya, dan bagaimana ini mendukung sistem subdomain di digitalplat.org & exposure Obotzone.
         </p>
 
+        <!-- CONTENT -->
         <article class="content">
 
           <h2 id="apa-itu">1. Apa itu Cloudflare Pages?</h2>
           <p>
             Cloudflare Pages adalah platform hosting gratis untuk website statis (HTML, CSS, JS) yang berjalan di jaringan global Cloudflare.  
-            Ia memberikan kecepatan tinggi, SSL otomatis, dan deployment instan.
+            Ia memberikan kecepatan tinggi, SSL otomatis, CDN bawaan, dan deployment instan.
           </p>
 
           <div class="highlight">
-            <strong>Alur kerjanya:</strong><br>
+            <strong>Alur kerjanya sangat sederhana:</strong><br>
             Update file → commit → Cloudflare Pages build → website otomatis online.
           </div>
 
           <h2 id="fitur">2. Kenapa Cloudflare Pages cocok untuk Obotzone?</h2>
           <ul>
-            <li>Gratis & sangat cepat.</li>
-            <li>Cocok untuk banyak subdomain (termasuk dari digitalplat.org).</li>
-            <li>Deployment otomatis, tanpa upload manual.</li>
-            <li>Stabil untuk website ringan & landing page.</li>
+            <li>Gratis & super cepat.</li>
+            <li>Sangat cocok untuk banyak subdomain (termasuk digitalplat.org).</li>
+            <li>Deployment otomatis tanpa upload manual.</li>
+            <li>Stabil dan ideal untuk website ringan, landing page, atau jaringan exposure.</li>
           </ul>
 
           <h2 id="subdomain">3. Integrasi dengan subdomain digitalplat.org</h2>
           <p>
-            Subdomain gratis dapat diarahkan ke project Cloudflare Pages. Ini ideal untuk:
+            Subdomain gratis dari digitalplat.org dapat diarahkan langsung ke project Cloudflare Pages tanpa hosting tambahan. Ini membuat:
           </p>
           <ul>
-            <li>Membuat banyak landing page.</li>
-            <li>Website eksperimen.</li>
-            <li>Halaman tutorial.</li>
-            <li>Jaringan exposure Obotzone.</li>
+            <li>Membuat landing page jadi jauh lebih cepat.</li>
+            <li>Bikin banyak halaman uji coba tidak perlu hosting baru.</li>
+            <li>Memperluas jaringan exposure Obotzone.</li>
+            <li>Membangun ekosistem traffic organik yang besar.</li>
           </ul>
 
           <div class="highlight">
-            Semakin besar exposure Obotzone, semakin bernilai semua subdomain di bawah jaringan situsmu.
+            Semakin besar exposure Obotzone, semakin bernilai seluruh jaringan subdomain di bawah digitalplat.org yang kamu kelola.
           </div>
 
           <h2 id="syarat">4. Apa saja yang perlu disiapkan?</h2>
@@ -246,6 +101,7 @@
 
         </article>
 
+        <!-- FOOTER NAV -->
         <div class="footer-nav">
           <a href="/tutorials/index.html">← Kembali ke daftar tutorial</a>
           <a class="btn-next" href="/tutorials/struktur-project-cloudflare-pages.html">
@@ -279,9 +135,9 @@
         <div class="box">
           <div class="box-title">Checklist</div>
           <ul>
-            <li>Paham konsep dasar Cloudflare Pages.</li>
+            <li>Paham konsep Cloudflare Pages.</li>
             <li>Siap menyiapkan file statis.</li>
-            <li>Siap menghubungkan subdomain.</li>
+            <li>Tahu cara hubungkan subdomain.</li>
             <li>Siap lanjut ke tutorial #2.</li>
           </ul>
         </div>
