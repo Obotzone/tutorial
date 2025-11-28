@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #5 – Pengelolaan & Update Project Cloudflare Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Tutorial #5: Cara melakukan update website, mengelola commit, push, branch, dan memanfaatkan fitur otomatis Cloudflare Pages agar project selalu rapi dan profesional." />
+
+  <link rel="stylesheet" href="/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">5</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- GRID -->
+    <main class="layout">
+
+      <!-- LEFT PANEL -->
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>Pengelolaan & Update Project</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>level dasar • workflow profesional</span>
+        </div>
+
+        <h1>Pengelolaan & Update Project Cloudflare Pages</h1>
+        <p class="subtitle">
+          Setelah project online dengan domain sendiri, hal paling penting adalah mempelajari
+          bagaimana cara update website dengan benar, memastikan tidak error, dan membuat workflow yang stabil.
+        </p>
+
+        <article class="content">
+
+          <h2 id="otomatis">1. Kenapa semua update harus lewat GitHub?</h2>
+          <p>
+            Cloudflare Pages bekerja menggunakan sistem otomatis:
+          </p>
+          <ul>
+            <li>Kamu update file → commit → push</li>
+            <li>Cloudflare Pages mendeteksi perubahan</li>
+            <li>Pages melakukan build baru</li>
+            <li>Website otomatis update</li>
+          </ul>
+
+          <div class="highlight">
+            Cloudflare *tidak menyediakan upload manual*.  
+            Semua perubahan wajib lewat GitHub agar rapi & aman.
+          </div>
+
+          <h2 id="langkah-update">2. Cara melakukan update file</h2>
+          <p>
+            Kamu bisa melakukan update pakai:
+          </p>
+
+          <ul>
+            <li>GitHub Web (cara paling mudah)</li>
+            <li>GitHub Desktop</li>
+            <li>VSCode + Git</li>
+          </ul>
+
+          <h3>✔ Menggunakan GitHub Web (paling cepat untuk pemula)</h3>
+          <ul>
+            <li>Buka repository kamu</li>
+            <li>Masuk folder yang ingin kamu edit</li>
+            <li>Klik file → Edit this file</li>
+            <li>Edit sesuai kebutuhan</li>
+            <li>Scroll ke bawah → Commit changes</li>
+            <li>Klik <strong>Commit directly to main</strong></li>
+          </ul>
+
+          <div class="highlight">
+            Setelah commit, tunggu 5–20 detik.  
+            Cloudflare Pages akan rebuild otomatis.
+          </div>
+
+          <h2 id="cek-deploy">3. Mengecek status deployment</h2>
+          <p>Buka:</p>
+          <ul>
+            <li><strong>Workers & Pages → Pages → Project kamu</strong></li>
+            <li>Pilih tab <strong>Deployments</strong></li>
+          </ul>
+
+          <p>Kamu akan melihat status seperti:</p>
+          <ul>
+            <li><strong>Queued</strong> → menunggu</li>
+            <li><strong>Building</strong> → sedang membangun</li>
+            <li><strong>Success</strong> → berhasil</li>
+            <li><strong>Failed</strong> → ada error</li>
+          </ul>
+
+          <div class="highlight">
+            Jika gagal, klik deployment → lihat log error warna merah.
+          </div>
+
+          <h2 id="branch">4. Menggunakan Branch (Opsional tapi profesional)</h2>
+          <p>
+            Jika kamu ingin update tanpa merusak versi live:
+          </p>
+
+          <ul>
+            <li>Buat branch baru, misalnya: <code>update-layout</code></li>
+            <li>Edit semua file di branch tersebut</li>
+            <li>Merge ke <code>main</code> setelah yakin</li>
+          </ul>
+
+          <p>
+            Cloudflare Pages bisa otomatis membuat:
+          </p>
+          <ul>
+            <li><strong>Preview URL</strong> untuk setiap branch</li>
+          </ul>
+
+          <div class="highlight">
+            Contoh preview:  
+            <code>https://update-layout.yourproject.pages.dev</code>
+          </div>
+
+          <p>
+            Ini sangat berguna jika kamu ingin eksperimen layout, warna, atau perubahan besar.
+          </p>
+
+          <h2 id="struktur">5. Menjaga struktur project tetap rapi</h2>
+          <p>
+            Untuk project dengan banyak halaman seperti Obotzone, struktur yang rapi sangat penting.
+          </p>
+
+<pre><code>root/
+├─ index.html
+├─ assets/
+│  ├─ css/
+│  │  └─ tutorial.css
+│  ├─ img/
+│  └─ js/
+└─ tutorials/
+   ├─ index.html
+   ├─ tutorial-1.html
+   ├─ tutorial-2.html
+   ├─ tutorial-3.html
+   ├─ tutorial-4.html
+   └─ tutorial-5.html
+</code></pre>
+
+          <h2 id="error">6. Hal yang sering bikin error (dan cara mengatasinya)</h2>
+
+          <ul>
+            <li><strong>Nama folder beda → 404</strong><br />
+              ✔ Gunakan huruf kecil dan hindari spasi.</li>
+
+            <li><strong>Link salah → halaman tidak ditemukan</strong><br />
+              ✔ Periksa kembali <code>href="/tutorials/xxx.html"</code>.</li>
+
+            <li><strong>CSS tidak terbaca</strong><br />
+              ✔ Pastikan path CSS benar: <code>/assets/css/tutorial.css</code></li>
+
+            <li><strong>Build failed</strong><br />
+              ✔ Karena file HTML berisi karakter aneh atau kurang tanda tutup.</li>
+
+            <li><strong>Gambar tidak muncul</strong><br />
+              ✔ Pastikan file benar-benar ada di <code>/assets/img/</code></li>
+          </ul>
+
+          <h2 id="update-besar">7. Cara aman melakukan update besar</h2>
+
+          <p>
+            Jika kamu ingin mengganti layout besar:
+          </p>
+
+          <ul>
+            <li>Buat branch baru</li>
+            <li>Edit HTML + CSS</li>
+            <li>Cek Preview URL</li>
+            <li>Kalau sudah oke → Merge ke main</li>
+          </ul>
+
+          <div class="highlight">
+            Menjaga branch <code>main</code> tetap “bersih” adalah kebiasaan developer profesional.
+          </div>
+
+          <h2 id="lanjut">8. Setelah paham update → saatnya masuk ke fitur pro</h2>
+          <p>
+            Di tutorial selanjutnya kita akan membahas:
+          </p>
+
+          <ul>
+            <li>Fitur redirect</li>
+            <li>Error pages</li>
+            <li>Cloudflare Rules</li>
+            <li>Deployment preview</li>
+            <li>Multi-project management</li>
+          </ul>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/menghubungkan-domain-kustom.html">← Kembali ke Tutorial #4</a>
+          <a class="btn-next" href="/tutorials/fungsi-lanjutan-cloudflare-pages.html">
+            Lanjut ke Tutorial #6 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi halaman</div>
+          <ul>
+            <li><a href="#otomatis">Update otomatis via Git</a></li>
+            <li><a href="#langkah-update">Cara update</a></li>
+            <li><a href="#cek-deploy">Cek deployment</a></li>
+            <li><a href="#branch">Branch & preview</a></li>
+            <li><a href="#struktur">Struktur rapi</a></li>
+            <li><a href="#error">Mengatasi error</a></li>
+            <li><a href="#update-besar">Update besar</a></li>
+            <li><a href="#lanjut">Lanjut fitur pro</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Catatan Developer</div>
+          <p>
+            Semua perubahan project bergantung pada GitHub.
+            Jadi biasakan commit kecil namun rutin agar mudah dilacak.
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Butuh Bantuan?</div>
+          <p>
+            Jika ada error, kirim screenshot ke Telegram:<br />
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
