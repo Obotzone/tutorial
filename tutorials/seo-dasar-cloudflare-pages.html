@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #7 – SEO Dasar untuk Cloudflare Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Tutorial #7: Teknik SEO dasar agar website di Cloudflare Pages mudah terindex Google, cepat, bersih, dan siap naik ranking." />
+
+  <link rel="stylesheet" href="/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">7</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- GRID -->
+    <main class="layout">
+
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>SEO Dasar Cloudflare Pages</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>seo dasar • wajib untuk index</span>
+        </div>
+
+        <h1>SEO Dasar untuk Cloudflare Pages</h1>
+        <p class="subtitle">
+          Cloudflare Pages sangat cepat dan stabil, namun tetap perlu pengaturan SEO agar halaman kamu
+          mudah terindex Google, mendapatkan ranking, dan dipercaya mesin pencari.
+        </p>
+
+        <article class="content">
+
+          <h2 id="meta-title">1. Gunakan Meta Title & Description yang Tepat</h2>
+          <p>Setiap halaman wajib punya:</p>
+
+<pre><code>&lt;title&gt;Judul halaman (maks 55 karakter)&lt;/title&gt;
+&lt;meta name="description" content="deskripsi 150–160 karakter"&gt;
+</code></pre>
+
+          <p>
+            Di Cloudflare Pages tidak ada backend, jadi kamu harus menulis ini secara manual di setiap HTML.
+          </p>
+
+          <div class="highlight">
+            Meta title & description adalah kunci pertama yang dibaca Google.
+          </div>
+
+          <h2 id="clean-url">2. Gunakan URL bersih (tanpa query)</h2>
+          <p>
+            Untuk SEO, hindari URL seperti:
+          </p>
+          <code>/halaman.html?id=123</code>
+
+          <p>
+            Pakai nama file seperti:
+          </p>
+          <code>/panduan-cloudflare-pages.html</code>
+
+          <div class="highlight">
+            Google lebih suka URL jelas dan pendek.
+          </div>
+
+          <h2 id="struktur">3. Struktur konten rapi: H1, H2, H3</h2>
+
+          <p>
+            Gunakan format heading yang rapi:
+          </p>
+
+          <ul>
+            <li><strong>H1</strong> → Judul utama</li>
+            <li><strong>H2</strong> → Subjudul</li>
+            <li><strong>H3</strong> → Penjelasan detail</li>
+          </ul>
+
+          <p>
+            Cloudflare Pages tidak punya CMS otomatis, jadi heading manual adalah hal wajib.
+          </p>
+
+          <h2 id="sitemap">4. Tambahkan Sitemap XML</h2>
+
+          <p>Buat file:</p>
+
+<pre><code>/sitemap.xml</code></pre>
+
+          <p>Contoh isi:</p>
+
+<pre><code>&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://domainkamu.com/&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://domainkamu.com/tutorials/&lt;/loc&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;
+</code></pre>
+
+          <div class="highlight">
+            Setelah membuat sitemap, submit di Google Search Console.
+          </div>
+
+          <h2 id="robots">5. Tambahkan robots.txt</h2>
+
+          <p>Buat file:</p>
+
+<pre><code>/robots.txt</code></pre>
+
+          <p>Isi minimalnya:</p>
+
+<pre><code>User-agent: *
+Allow: /
+Sitemap: https://domainkamu.com/sitemap.xml
+</code></pre>
+
+          <h2 id="gsc">6. Daftarkan Domain ke Google Search Console</h2>
+
+          <p>
+            Ini langkah paling penting untuk index cepat.
+          </p>
+
+          <ul>
+            <li>Buka: <strong>https://search.google.com/search-console</strong></li>
+            <li>Pilih “URL Prefix”</li>
+            <li>Masukkan domain/subdomain kamu</li>
+          </ul>
+
+          <p>
+            Lalu verifikasi menggunakan:
+          </p>
+
+          <ul>
+            <li>HTML tag (paling mudah)</li>
+            <li>DNS TXT Record</li>
+          </ul>
+
+          <div class="highlight">
+            Setelah terverifikasi, klik:  
+            <strong>Inspect URL → Request Indexing</strong>
+          </div>
+
+          <h2 id="kecepatan">7. Kecepatan = poin SEO lebih tinggi</h2>
+
+          <p>Cloudflare Pages sudah sangat cepat, namun optimasi ini bisa menambah nilai:</p>
+
+          <ul>
+            <li>Kompres gambar sebelum upload</li>
+            <li>Gunakan <code>loading="lazy"</code> untuk gambar</li>
+            <li>Minify CSS/JS (kalau ada file besar)</li>
+            <li>Gunakan ukuran font standar</li>
+          </ul>
+
+          <h2 id="mobile">8. Mobile-first (responsif)</h2>
+
+          <p>
+            Google memakai Mobile-First Indexing.
+            Gunakan layout responsif agar halaman tampil bagus di smartphone.
+          </p>
+
+          <div class="highlight">
+            Jika halaman tidak responsif → ranking otomatis turun drastis.
+          </div>
+
+          <h2 id="duplicate">9. Hindari konten duplikat</h2>
+
+          <p>
+            Jika kamu menggunakan banyak subdomain digitalplat.org,
+            pastikan setiap halaman berisi konten berbeda.
+          </p>
+
+          <p>
+            Google akan menurunkan ranking jika semua halaman sama.
+          </p>
+
+          <h2 id="internal-link">10. Gunakan internal link</h2>
+
+          <p>
+            Hubungkan halaman kamu satu sama lain:
+          </p>
+
+          <ul>
+            <li>Home → Tutorials</li>
+            <li>Tutorial #1 → #2 → #3</li>
+            <li>Footer link ke halaman penting</li>
+          </ul>
+
+          <div class="highlight">
+            Mesin pencari lebih cepat meng-crawl website yang saling terhubung.
+          </div>
+
+          <h2 id="authority">11. Tingkatkan “Authority” situs kamu</h2>
+
+          <p>
+            Untuk exposure Obotzone, metode berikut sangat efektif:
+          </p>
+
+          <ul>
+            <li>Gunakan subdomain berkualitas (digitalplat.org sudah bagus)</li>
+            <li>Jangan gunakan hosting murahan/bermasalah</li>
+            <li>Perbanyak konten bermanfaat (tutorial, panduan)</li>
+            <li>Promosikan melalui sosial media (Telegram / X)</li>
+          </ul>
+
+          <div class="highlight">
+            Semakin besar exposure → semakin mudah semua subdomain kamu naik ranking.
+          </div>
+
+          <h2 id="next">12. Setelah SEO dasar → kita masuk SEO lanjutan</h2>
+          <p>
+            Di tutorial berikutnya kita akan belajar:
+          </p>
+
+          <ul>
+            <li>Structured Data / Schema JSON-LD</li>
+            <li>Meta OG untuk share preview</li>
+            <li>PageSpeed Insights tuning</li>
+            <li>Internal link strategy untuk jaringan subdomain</li>
+          </ul>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/fungsi-lanjutan-cloudflare-pages.html">← Kembali ke Tutorial #6</a>
+          <a class="btn-next" href="/tutorials/seo-lanjutan-cloudflare-pages.html">
+            Lanjut ke Tutorial #8 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi halaman</div>
+          <ul>
+            <li><a href="#meta-title">Meta title</a></li>
+            <li><a href="#clean-url">URL bersih</a></li>
+            <li><a href="#struktur">Heading rapi</a></li>
+            <li><a href="#sitemap">Sitemap</a></li>
+            <li><a href="#robots">robots.txt</a></li>
+            <li><a href="#gsc">Google Search Console</a></li>
+            <li><a href="#kecepatan">Kecepatan</a></li>
+            <li><a href="#mobile">Responsif</a></li>
+            <li><a href="#duplicate">Hindari duplikat</a></li>
+            <li><a href="#internal-link">Internal link</a></li>
+            <li><a href="#authority">Authority</a></li>
+            <li><a href="#next">Next step</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Tips SEO</div>
+          <p>
+            Tidak ada trik instan.  
+            Tapi website cepat + bersih + konten unik = pasti naik ranking.
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Butuh Bantuan?</div>
+          <p>
+            Saya bisa bantu cek SEO situs kamu:<br />
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
