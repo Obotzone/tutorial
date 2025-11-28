@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #6 – Fitur Lanjutan Cloudflare Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Tutorial #6: Fitur lanjutan Cloudflare Pages seperti redirect, custom error pages, ruleset, header control, dan optimasi profesional untuk project besar." />
+
+  <link rel="stylesheet" href="/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">6</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- CONTENT GRID -->
+    <main class="layout">
+
+      <!-- LEFT -->
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>Fitur Lanjutan Cloudflare Pages</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>level pro • fitur lanjutan</span>
+        </div>
+
+        <h1>Fitur Lanjutan Cloudflare Pages</h1>
+        <p class="subtitle">
+          Setelah menguasai dasar-dasar Pages, sekarang kita masuk ke fitur PRO:
+          redirect, custom error pages, ruleset, header control, cache, dan optimasi lanjutan.
+        </p>
+
+        <article class="content">
+
+          <h2 id="redirect">1. Redirect (301/302) untuk halaman atau folder</h2>
+          <p>
+            Redirect adalah salah satu fitur PRO paling penting untuk SEO dan navigasi website profesional.
+          </p>
+
+          <h3>✔ Lokasi file redirect</h3>
+          <p>Buat file di root project:</p>
+
+<pre><code>_redirects
+</code></pre>
+
+          <h3>✔ Format redirect</h3>
+<pre><code>/lama.html     /baru.html      301
+/blog/*        /artikel/:splat 302
+/*             /index.html     200
+</code></pre>
+
+          <ul>
+            <li><strong>301</strong> → redirect permanen (SEO aman)</li>
+            <li><strong>302</strong> → redirect sementara</li>
+            <li><strong>200</strong> → SPA fallback</li>
+          </ul>
+
+          <div class="highlight">
+            Redirect ini powerful banget untuk mengarahkan landing page,
+            subdomain, atau memperbaiki link mati.
+          </div>
+
+          <h2 id="error-pages">2. Custom Error Pages (404 / 500 / Maintenance)</h2>
+
+          <p>Buat file khusus di root project:</p>
+
+<pre><code>404.html
+500.html
+</code></pre>
+
+          <p>
+            Kalau halaman tidak ditemukan, Cloudflare otomatis menampilkan file tersebut.
+          </p>
+
+          <div class="highlight">
+            Kamu bisa membuat 404 versi Obotzone dengan tampilan elegan sesuai brand kamu.
+          </div>
+
+          <h2 id="ruleset">3. Ruleset Cloudflare (Penyetelan Lanjut)</h2>
+
+          <p>
+            Ruleset memungkinkan kamu mengatur bagaimana Cloudflare memproses request.
+            Cocok untuk:
+          </p>
+
+          <ul>
+            <li>Mengatur cache</li>
+            <li>Redirect berbasis kondisi kompleks</li>
+            <li>Rewrite URL</li>
+            <li>Menambahkan header keamanan</li>
+          </ul>
+
+          <h3>✔ Cara membuat Ruleset</h3>
+
+          <ul>
+            <li>Buka: <strong>Rules → Ruleset</strong></li>
+            <li>Klik <strong>Create Ruleset</strong></li>
+            <li>Pilih “HTTP Request incoming”</li>
+          </ul>
+
+          <h3>✔ Contoh rule: blokir user-agent tertentu</h3>
+
+<pre><code>if (http.user_agent contains "bot")
+  then block
+</code></pre>
+
+          <h3>✔ Contoh rule: paksa HTTPS</h3>
+
+<pre><code>if (not http.request.full_uri starts_with "https")
+  then redirect to https://{host}{uri}
+</code></pre>
+
+          <h2 id="cache">4. Optimalisasi Cache</h2>
+
+          <p>
+            Cloudflare Pages otomatis sangat cepat, tapi kita tetap bisa optimalkan:
+          </p>
+
+          <ul>
+            <li>Mengatur browser cache</li>
+            <li>Edge cache</li>
+            <li>Ignore query parameters</li>
+          </ul>
+
+          <div class="highlight">
+            Semua ini bisa diatur lewat Page Rules atau Ruleset.
+          </div>
+
+          <h2 id="headers">5. Menambahkan HTTP Security Headers</h2>
+
+          <p>
+            Tambahkan file bernama:
+          </p>
+
+<pre><code>_headers
+</code></pre>
+
+          <h3>✔ Contoh isi</h3>
+
+<pre><code>/* 
+  Strict-Transport-Security: max-age=63072000
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+</code></pre>
+
+          <p>
+            Ini membuat situs lebih aman dan profesional.
+          </p>
+
+          <h2 id="spa">6. Mode Single Page App (opsional)</h2>
+
+          <p>Jika kamu membuat website berbasis JavaScript (SPA), gunakan redirect:</p>
+
+<pre><code>/*   /index.html   200
+</code></pre>
+
+          <p>
+            Semua path akan diarahkan kembali ke <code>index.html</code>.
+          </p>
+
+          <h2 id="multiple-project">7. Mengelola Banyak Project Pages Sekaligus</h2>
+          <p>
+            Jika kamu punya banyak subdomain digitalplat.org atau project Obotzone lainnya,
+            kamu bisa mengelolanya sebagai project terpisah.
+          </p>
+
+          <ul>
+            <li>Satu repository per project</li>
+            <li>Satu Pages deployment per project</li>
+            <li>Masing-masing punya custom domain sendiri</li>
+          </ul>
+
+          <div class="highlight">
+            Metode ini sangat cocok untuk jaringan exposure, PBN clean,
+            portofolio, dan landing page marketing Obotzone.
+          </div>
+
+          <h2 id="next">8. Setelah ini?</h2>
+          <p>
+            Di tutorial selanjutnya, kita bisa membahas:
+          </p>
+
+          <ul>
+            <li>Deploy versi PRO via GitHub Actions</li>
+            <li>Multi-branch workflow</li>
+            <li>SEO teknis untuk Pages</li>
+            <li>Hosting API backend dengan Cloudflare Workers</li>
+          </ul>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/pengelolaan-dan-update-project.html">← Kembali ke Tutorial #5</a>
+          <a class="btn-next" href="/tutorials/seo-dasar-cloudflare-pages.html">
+            Lanjut ke Tutorial #7 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi halaman</div>
+          <ul>
+            <li><a href="#redirect">Redirect</a></li>
+            <li><a href="#error-pages">Custom error</a></li>
+            <li><a href="#ruleset">Ruleset</a></li>
+            <li><a href="#cache">Cache</a></li>
+            <li><a href="#headers">Security headers</a></li>
+            <li><a href="#spa">SPA mode</a></li>
+            <li><a href="#multiple-project">Multiple project</a></li>
+            <li><a href="#next">Next step</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Catatan PRO</div>
+          <p>
+            Redirect & Ruleset adalah dua fitur paling powerful dari Pages.
+            Kalau kamu kuasai ini, kamu bisa bikin sistem web yang scalable dan profesional.
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Butuh Bantuan?</div>
+          <p>
+            Jika bingung dengan redirect atau rules, DM Telegram:<br />
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
