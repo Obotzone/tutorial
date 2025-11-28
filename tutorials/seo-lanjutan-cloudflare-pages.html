@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial #8 – SEO Lanjutan untuk Cloudflare Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Tutorial #8: Optimasi SEO lanjutan untuk Cloudflare Pages—Schema, OG Tags, PageSpeed PRO, backlink flow, internal link strategy, dan kualitas konten. Cocok untuk websitemu agar naik ranking." />
+
+  <link rel="stylesheet" href="/tutorial.css" />
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div>
+          <div class="brand-text-main">Obotzone</div>
+          <div class="brand-text-sub">web & exposure lab</div>
+        </div>
+      </div>
+
+      <div class="tutorial-tag">
+        <div class="badge">8</div>
+        <span>Tutorial Cloudflare Pages</span>
+      </div>
+    </header>
+
+    <!-- GRID -->
+    <main class="layout">
+
+      <section class="card-main">
+
+        <nav class="breadcrumb">
+          <a href="/index.html">Beranda</a> ›
+          <a href="/tutorials/index.html">Tutorial</a> ›
+          <span>SEO Lanjutan</span>
+        </nav>
+
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>level pro • optimasi penuh</span>
+        </div>
+
+        <h1>SEO Lanjutan Cloudflare Pages</h1>
+        <p class="subtitle">
+          Kita masuk ke teknik professional: Schema JSON-LD, OpenGraph, strategi backlink, internal link flow,
+          struktur konten E-E-A-T, serta PageSpeed PRO tuning.
+          Semua ini membuat website lebih dipercaya Google dan lebih mudah ranking.
+        </p>
+
+        <article class="content">
+
+          <h2 id="schema">1. Schema JSON-LD (Peningkat Ranking Terkuat)</h2>
+          <p>
+            Schema menambah “konteks” pada Google.  
+            Penting untuk website landing page, tutorial, profil, produk, dsb.
+          </p>
+
+          <p>Buat file Schema per halaman seperti ini:</p>
+
+<pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Pengenalan Cloudflare Pages",
+  "description": "Tutorial lengkap Cloudflare Pages.",
+  "url": "https://domainkamu.com/tutorials/pengenalan-cloudflare-pages.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Obotzone"
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+          <div class="highlight">
+            Schema meningkatkan CTR, menambah poin kualitas konten, dan MEMPERCEPAT index.
+          </div>
+
+          <h2 id="ogtags">2. OpenGraph & Twitter Card</h2>
+          <p>
+            Penting agar halaman terlihat profesional saat dishare di WhatsApp, Telegram, Facebook, dan X.
+          </p>
+
+<pre><code>&lt;meta property="og:title" content="Pengenalan Cloudflare Pages" /&gt;
+&lt;meta property="og:description" content="Tutorial lengkap Cloudflare Pages." /&gt;
+&lt;meta property="og:image" content="https://domainkamu.com/assets/img/cover.png" /&gt;
+&lt;meta property="og:url" content="https://domainkamu.com/tutorials/pengenalan-cloudflare-pages.html" /&gt;
+&lt;meta name="twitter:card" content="summary_large_image" /&gt;
+</code></pre>
+
+          <p>
+            Jika kamu mau, kita bisa buat **template OG image otomatis** nanti.
+          </p>
+
+          <h2 id="pagespeed">3. PageSpeed PRO Tuning</h2>
+          <p>Google PageSpeed Insights mempengaruhi ranking.</p>
+
+          <ul>
+            <li>Gunakan font system UI (sudah kita lakukan di template)</li>
+            <li>Kompres gambar sebelum upload (ideal &lt; 150 KB)</li>
+            <li>Tambahkan <code>loading="lazy"</code> ke semua gambar</li>
+            <li>Minify CSS dengan Cloudflare Auto-Minify</li>
+            <li>Gunakan brotli compression (aktif otomatis)</li>
+            <li>Gunakan cache Cloudflare (Page Rules)</li>
+          </ul>
+
+          <div class="highlight">
+            Cloudflare Pages + PageSpeed PRO = skor 95–100 sangat mudah tercapai.
+          </div>
+
+          <h2 id="internal-link">4. Internal Link Flow (Teknik SEO profesional)</h2>
+          <p>
+            Hubungkan halaman kamu dengan struktur terencana:
+          </p>
+
+          <ul>
+            <li>Tutorial → tutorial selanjutnya (sudah kamu lakukan)</li>
+            <li>Halaman penting dihubungkan dari 3–5 halaman lain</li>
+            <li>Gunakan breadcrumb (kita sudah gunakan)</li>
+          </ul>
+
+          <p>
+            Internal link adalah sinyal kuat untuk Google mengenali struktur website kamu.
+          </p>
+
+          <h2 id="eeat">5. E-E-A-T (Google Trust System)</h2>
+          <p>
+            Google menggunakan penilaian:
+          </p>
+
+          <ul>
+            <li><strong>E</strong>xperience</li>
+            <li><strong>E</strong>xpertise</li>
+            <li><strong>A</strong>uthoritativeness</li>
+            <li><strong>T</strong>rustworthiness</li>
+          </ul>
+
+          <p>Penerapannya di Cloudflare Pages:</p>
+
+          <ul>
+            <li>Tambahkan halaman “About Obotzone”</li>
+            <li>Tambahkan halaman “Contact / Telegram”</li>
+            <li>Tampilkan “created by Obotzone” setiap tutorial</li>
+            <li>Gunakan struktur konten jelas & edukatif</li>
+          </ul>
+
+          <div class="highlight">
+            Website yang memenuhi E-E-A-T lebih cepat naik ke Page 1 Google.
+          </div>
+
+          <h2 id="backlink">6. Strategi Backlink (Aman & Efektif)</h2>
+          <p>Metode aman (tidak bikin penalti):</p>
+
+          <ul>
+            <li>Gunakan subdomain digitalplat.org sebagai satelit clean</li>
+            <li>Buat jaringan “mini PBN” dari tutorial → halaman utama</li>
+            <li>Gunakan Telegram untuk share link</li>
+            <li>Masukkan website ke direktori aman (DmozTools, etc)</li>
+            <li>Promosikan melalui social media</li>
+          </ul>
+
+          <div class="highlight">
+            Jangan gunakan backlink spam.  
+            Clean website lebih cepat naik ranking.
+          </div>
+
+          <h2 id="rich-content">7. Konten Panjang & Bernilai (Ranking booster)</h2>
+          <p>
+            Untuk tutorial seperti ini, panjang ideal:
+          </p>
+
+          <ul>
+            <li>Minimal 800 kata</li>
+            <li>Lebih panjang = lebih stabil di ranking</li>
+            <li>Gunakan bullet, blockquote, highlight</li>
+            <li>Berikan contoh kode (kita sudah lakukan)</li>
+          </ul>
+
+          <p>
+            Google sangat menyukai konten mendalam dan rapi.
+          </p>
+
+          <h2 id="structured-flow">8. Struktur Konten Flow (Dipakai website besar)</h2>
+          <p>Setiap halaman idealnya memiliki urutan:</p>
+
+          <ol>
+            <li>Judul (H1)</li>
+            <li>Deskripsi singkat</li>
+            <li>Isi terstruktur (H2)</li>
+            <li>Contoh / kode</li>
+            <li>Highlight penekanan</li>
+            <li>Kesimpulan</li>
+            <li>Navigasi next/prev</li>
+          </ol>
+
+          <p>Kamu sudah menerapkan ini — tinggal dipertahankan.</p>
+
+          <h2 id="canonical">9. Tag Canonical</h2>
+          <p>
+            Tambahkan canonical untuk mencegah duplicate content:
+          </p>
+
+<pre><code>&lt;link rel="canonical" href="https://domainkamu.com/tutorials/seo-lanjutan-cloudflare-pages.html"&gt;
+</code></pre>
+
+          <h2 id="pro-tips">10. Pro Tips Cloudflare Pages SEO</h2>
+          <ul>
+            <li>Gunakan folder `/tutorials/` untuk hierarki jelas</li>
+            <li>Gunakan nama file yang SEO friendly</li>
+            <li>Buat posting minimal 1 halaman baru setiap minggu</li>
+            <li>Gunakan JSON-LD di setiap halaman penting</li>
+            <li>Kirim ulang sitemap setiap update besar</li>
+          </ul>
+
+          <div class="highlight">
+            Konsistensi = kunci ranking jangka panjang.
+          </div>
+
+        </article>
+
+        <div class="footer-nav">
+          <a href="/tutorials/seo-dasar-cloudflare-pages.html">← Kembali ke Tutorial #7</a>
+          <a class="btn-next" href="/tutorials/deploy-ke-banyak-subdomain.html">
+            Lanjut ke Tutorial #9 →
+          </a>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="box toc">
+          <div class="box-title">Isi Halaman</div>
+          <ul>
+            <li><a href="#schema">Schema JSON-LD</a></li>
+            <li><a href="#ogtags">OpenGraph</a></li>
+            <li><a href="#pagespeed">PageSpeed PRO</a></li>
+            <li><a href="#internal-link">Internal Link Flow</a></li>
+            <li><a href="#eeat">E-E-A-T</a></li>
+            <li><a href="#backlink">Backlink Strategy</a></li>
+            <li><a href="#rich-content">Konten panjang</a></li>
+            <li><a href="#structured-flow">Struktur konten</a></li>
+            <li><a href="#canonical">Canonical</a></li>
+            <li><a href="#pro-tips">Pro Tips</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Butuh Bantuan?</div>
+          <p>
+            Jika ingin saya review SEO website kamu, kirim saja link via Telegram:<br>
+            <a href="https://t.me/obotzone19" target="_blank">@obotzone19</a>
+          </p>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+</body>
+
+</html>
